@@ -1,0 +1,1966 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste de Nível de Inglês - Prof. Johnatan Willow</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding-bottom: 60px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px 40px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            text-align: center;
+            color: #444;
+        }
+        .name-input-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .name-input-container input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            width: 80%;
+            max-width: 300px;
+        }
+        .instructions {
+            background-color: #e9ecef;
+            padding: 15px;
+            border-left: 5px solid #007bff;
+            margin-bottom: 20px;
+        }
+        .progress-bar-container {
+            width: 100%;
+            background-color: #ddd;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .progress-bar {
+            color: white;
+            height: 20px;
+            border-radius: 5px;
+            width: 0%;
+            text-align: center;
+            line-height: 20px;
+            font-size: 14px;
+            transition: width 0.5s ease-in-out, background-color 0.5s ease-in-out;
+        }
+        .progress-bar.red { background-color: #dc3545; }
+        .progress-bar.yellow { background-color: #ffc107; }
+        .progress-bar.green { background-color: #28a745; }
+
+        .question {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #ccc;
+        }
+        .question p {
+            font-weight: bold;
+        }
+        .options label {
+            display: block;
+            margin-bottom: 8px;
+            cursor: pointer;
+        }
+        .options input {
+            margin-right: 10px;
+        }
+        .submit-btn, .back-to-menu-btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #8a2be2;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .submit-btn:hover, .back-to-menu-btn:hover {
+            background-color: #6c1aaf;
+        }
+
+        .test-selection-container {
+            text-align: center;
+            margin-top: 50px;
+        }
+        .test-selection-block {
+            margin-bottom: 30px;
+        }
+        .test-selection-block h3 {
+            border-bottom: 2px solid #ccc;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        /* Efeito de Sombra Elevada para os botões de seleção de teste */
+        .test-selection-btn {
+            display: block;
+            width: 50%;
+            margin: 10px auto;
+            padding: 15px;
+            font-size: 16px;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .test-selection-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+        }
+        .fundamental-btn {
+            background-color: #007bff;
+        }
+        .fundamental-btn:hover {
+            background-color: #0056b3;
+        }
+        .medio-btn {
+            background-color: #ffc107;
+            color: #333;
+        }
+        .medio-btn:hover {
+            background-color: #ffc928;
+        }
+        
+        .result-box {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #c3e6c3;
+            border-radius: 5px;
+            text-align: left;
+            font-size: 16px;
+            display: none;
+        }
+        .result-score {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .progress-score-bar {
+            height: 25px;
+            margin: 10px 0;
+            border-radius: 5px;
+            transition: width 1s ease-in-out;
+        }
+        .progress-score-bar.red { background-color: #dc3545; }
+        .progress-score-bar.yellow { background-color: #ffc107; }
+        .progress-score-bar.green { background-color: #28a745; }
+        .wrong-answers-list {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 20px;
+        }
+        .wrong-answers-list li {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .wrong-answers-list strong {
+            color: #721c24;
+        }
+        .footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            font-size: 12px;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+                margin: 10px auto;
+            }
+            h1 {
+                font-size: 24px;
+            }
+            h2 {
+                font-size: 18px;
+            }
+            .instructions {
+                padding: 10px;
+            }
+            .question p {
+                font-size: 16px;
+            }
+            .options label {
+                font-size: 14px;
+            }
+            .name-input-container input {
+                width: 95%;
+            }
+            .test-selection-btn {
+                width: 90%;
+            }
+        }
+    </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const grade6Container = document.getElementById('test6th-grade-container');
+            const grade7Container = document.getElementById('test7th-grade-container');
+            const grade8Container = document.getElementById('test8th-grade-container');
+            const grade9Container = document.getElementById('test9th-grade-container');
+            const gradeem1Container = document.getElementById('testem1-grade-container');
+            const gradeem2Container = document.getElementById('testem2-grade-container');
+            const gradeem3Container = document.getElementById('testem3-grade-container');
+            const selectionContainer = document.getElementById('test-selection-container');
+            const resultBox = document.getElementById('result-box');
+
+            const answers6th = {
+                q1: { ans: 'c', text: 'is / am', justification: 'O verbo to be concorda com o sujeito: name (terceira pessoa do singular) usa is, e I (primeira pessoa do singular) usa am.' },
+                q2: { ans: 'b', text: 'He goes to school every morning.', justification: 'O Presente Simples, usado para rotinas, exige que verbos na terceira pessoa do singular (he, she, it) terminem com -s ou -es.' },
+                q3: { ans: 'a', text: 'How old are you?', justification: 'Esta é a forma padrão para perguntar a idade de alguém em inglês, utilizando o verbo to be antes do sujeito you.' },
+                q4: { ans: 'c', text: 'My', justification: 'A frase se refere a um livro que I (eu) possuo, então o adjetivo possessivo correto é my.' },
+                q5: { ans: 'b', text: 'A muitos estudantes', justification: 'O apóstrofo é colocado após o s (students\') para indicar posse de um substantivo no plural.' },
+                q6: { ans: 'a', text: 'in', justification: 'A preposição in é usada para descrever que algo está dentro de um espaço.' },
+                q7: { ans: 'b', text: 'They are playing soccer now.', justification: 'O Presente Contínuo é formado pelo verbo to be (are) seguido de um verbo com -ing (playing) e é usado para ações em andamento.' },
+                q8: { ans: 'b', text: 'Listen to me.', justification: 'Frases no imperativo, usadas para dar comandos, começam com a forma base do verbo.' },
+                q9: { ans: 'c', text: 'children', justification: 'Child é um substantivo irregular, cujo plural é children.' },
+                q10: { ans: 'b', text: 'Animal', justification: 'Animal é um cognato em inglês, ou seja, uma palavra com grafia e significado semelhantes ao português.' },
+                q11: { ans: 'c', text: 'Mondai', justification: 'O nome correto do dia da semana é Monday.' },
+                q12: { ans: 'b', text: 'delicioso', justification: 'A palavra delicious é um cognato que significa delicioso.' },
+                q13: { ans: 'a', text: 'yellow', justification: 'Yellow é um adjetivo e deve ser usado após o verbo de ligação (is) sem a necessidade da palavra color.' },
+                q14: { ans: 'b', text: 'November', justification: 'O mês que segue October (outubro) é November (novembro).' },
+                q15: { ans: 'a', text: 'you', justification: 'A pergunta "And you?" é a forma mais comum de responder e perguntar de volta sobre a pessoa.' },
+                q16: { ans: 'c', text: 'I like to play basketball.', justification: 'Basketball é um esporte, o que se alinha com o vocabulário de esportes esperado para este nível.' },
+                q17: { ans: 'a', text: 'Irmã', justification: 'Sister significa irmã em português.' },
+                q18: { ans: 'c', text: 'Happy', justification: 'Happy é um adjetivo que descreve uma emoção. Run é um verbo e table é um substantivo.' },
+                q19: { ans: 'a', text: 'Canada', justification: 'Canadá é um dos países que têm o inglês como uma das línguas oficiais.' },
+                q20: { ans: 'c', text: 'ten', justification: 'A sequência numérica de 1 a 10 termina com ten.' }
+            };
+            
+            const answers7th = {
+                q21: { ans: 'b', text: 'was', justification: 'O verbo to be no passado para a terceira pessoa do singular (He, She, It) é was.' },
+                q22: { ans: 'a', text: 'I was playing soccer when it started to rain.', justification: 'O Passado Contínuo (was playing) é usado para descrever uma ação que estava em andamento quando outra ação (no Passado Simples, started) aconteceu.' },
+                q23: { ans: 'b', text: 'studied', justification: 'Para verbos regulares terminados em y precedido de consoante, trocamos o y por i e adicionamos -ed para formar o passado.' },
+                q24: { ans: 'c', text: 'them', justification: 'Them é um pronome de objeto, usado para substituir um substantivo que recebe a ação do verbo. He e we são pronomes de sujeito.' },
+                q25: { ans: 'c', text: 'radioactivity', justification: 'Radioactivity é a palavra com maior semelhança em grafia e significado com o português radioatividade. A BNCC incentiva o uso de cognatos para auxiliar na compreensão.' },
+                q26: { ans: 'b', text: 'could', justification: 'Could é a forma no passado do verbo modal can, usada para expressar habilidade no passado.' },
+                q27: { ans: 'a', text: 'him', justification: 'A frase requer um pronome de objeto para a terceira pessoa do singular masculino (he), que é him.' },
+                q28: { ans: 'b', text: 'I saw a movie last night.', justification: 'O verbo saw é o passado irregular de see. A frase indica uma ação que ocorreu em um tempo definido no passado (last night).' },
+                q29: { ans: 'a', text: 'timeline', justification: 'A palavra timeline é usada para se referir a uma sequência de eventos organizados cronologicamente, o que é a definição de linha do tempo. A BNCC sugere a produção de textos como timelines sobre o passado.' },
+                q30: { ans: 'b', text: 'na verdade', justification: 'Actually é um falso cognato e significa na verdade ou de fato, e não atualmente (currently). A BNCC incentiva a exploração do caráter polissêmico das palavras, que inclui falsos cognatos.' },
+                q31: { ans: 'c', text: 'in', justification: 'A preposição in é usada para se referir a meses e anos.' },
+                q32: { ans: 'b', text: 'go', justification: 'Went é a forma no passado irregular do verbo go. A BNCC prevê a construção de repertório lexical com verbos regulares e irregulares no passado.' },
+                q33: { ans: 'c', text: 'Past Figures of Brazil', justification: 'O título refere-se a personalidades do passado, o que se alinha com o objeto de conhecimento de produzir textos sobre fatos e personalidades do passado.' },
+                q34: { ans: 'a', text: 'ate', justification: 'Ate é o passado irregular do verbo eat. As outras opções são verbos regulares que terminam em -ed.' },
+                q35: { ans: 'c', text: 'did', justification: 'O auxiliar did é usado para formar perguntas no Passado Simples para todos os sujeitos.' },
+                q36: { ans: 'b', text: 'Entender que uma palavra pode ter múltiplos significados dependendo do contexto.', justification: 'A BNCC espera que os alunos explorem o caráter polissêmico de palavras de acordo com o contexto de uso.' },
+                q37: { ans: 'a', text: 'ontem', justification: 'Yesterday é um advérbio de tempo que significa ontem, indicando um evento passado.' },
+                q38: { ans: 'c', text: 'uma habilidade no passado.', justification: 'O verbo modal could é usado para descrever habilidades no passado.' },
+                q39: { ans: 'c', text: 'played', justification: 'Verbos regulares no passado terminam em -ed.' },
+                q40: { ans: 'a', text: 'Título, introdução, fatos cronológicos, conclusão.', justification: 'A produção de biografias e textos sobre o passado é uma habilidade esperada para o 7º ano e deve seguir uma estrutura textual coerente.' }
+            };
+
+            const answers8th = {
+                q41: { ans: 'a', text: 'I am going to travel next month.', justification: 'A frase usa be going to para expressar um plano para o futuro, o que é uma habilidade gramatical esperada para o 8º ano.' },
+                q42: { ans: 'b', text: 'My house is bigger than your house.', justification: 'Esta frase usa a forma comparativa bigger corretamente para comparar duas casas. A BNCC prevê o uso de comparativos e superlativos.' },
+                q43: { ans: 'c', text: 'best', justification: 'Best é a forma superlativa irregular de good. O conhecimento de superlativos irregulares é um conceito-chave para este nível.' },
+                q44: { ans: 'c', text: 'any', justification: 'Any é o quantificador correto para ser usado em frases negativas com substantivos incontáveis como water. O uso de quantificadores é uma habilidade do 8º ano.' },
+                q45: { ans: 'c', text: 'who', justification: 'Who é o pronome relativo apropriado para se referir a pessoas. A BNCC aborda o uso de pronomes relativos para construir períodos compostos.' },
+                q46: { ans: 'c', text: 'the superhero.', justification: 'O pronome relativo who se refere ao substantivo que o antecede, que é superhero. Compreender o referente dos pronomes é uma habilidade de leitura.' },
+                q47: { ans: 'b', text: 'unusual', justification: 'O prefixo un- significa "não" em unusual, assim como em unhappy. A BNCC inclui o reconhecimento de prefixos na formação de palavras.' },
+                q48: { ans: 'b', text: 'Reading is more interesting than watching TV.', justification: 'Esta frase expressa uma preferência pessoal, o que a torna uma opinião. A BNCC para o 8º ano abrange a análise crítica de textos, incluindo a diferenciação entre fatos e opiniões.' },
+                q49: { ans: 'a', text: 'quickly', justification: 'A palavra quickly é um advérbio formado pelo acréscimo do sufixo -ly ao adjetivo quick. A BNCC aborda a formação de palavras com sufixos.' },
+                q50: { ans: 'c', text: 'that', justification: 'That é um pronome relativo versátil que pode ser usado para se referir a objetos, como project. A BNCC para o 8º ano inclui o uso de pronomes relativos.' },
+                q51: { ans: 'a', text: 'desafio', justification: 'A palavra challenge traduz-se como desafio e se refere a uma tarefa ou situação difícil. O enriquecimento do repertório lexical é um foco do 8º ano.' },
+                q52: { ans: 'a', text: 'Parentes', justification: 'Parents é um falso cognato para a palavra parentes em português. A palavra significa pais. A BNCC incentiva a exploração de aspectos culturais na comunicação.' },
+                q53: { ans: 'b', text: 'an obligation', justification: 'O verbo modal must expressa uma obrigação forte ou necessidade. A BNCC prevê o uso de modais para expressar recomendação, necessidade ou obrigação.' },
+                q54: { ans: 'b', text: 'not possible to forget', justification: 'O prefixo un- significa "não", e o sufixo -able significa "capaz de". A BNCC para o 8º ano enfatiza o reconhecimento de prefixos e sufixos.' },
+                q55: { ans: 'b', text: 'quantifier', justification: 'Many é um quantificador usado para substantivos contáveis. A BNCC para o 8º ano inclui o uso de quantificadores.' },
+                q56: { ans: 'b', text: 'I think it will rain tomorrow.', justification: 'Esta é a tradução correta, usando I think para expressar uma opinião e will para fazer uma previsão sobre o futuro.' },
+                q57: { ans: 'b', text: 'many', justification: 'Many é usado com substantivos contáveis. A BNCC para o 8º ano inclui o uso de quantificadores.' },
+                q58: { ans: 'c', text: 'smartest', justification: 'Smartest é a forma superlativa correta para smart, usada para descrever o grau máximo de uma qualidade entre um grupo.' },
+                q59: { ans: 'b', text: 'This is the best movie I have ever seen.', justification: 'Best é a forma superlativa irregular de good, usada para comparar uma coisa com todo o grupo.' },
+                q60: { ans: 'a', text: 'a future possibility', justification: 'A frase usa will probably go, que indica uma possibilidade futura, pois o advérbio probably expressa incerteza.' }
+            };
+
+            const answers9th = {
+                q61: { ans: 'b', text: 'First conditional', justification: 'A oração condicional do tipo 1 descreve uma situação real e provável no futuro. Sua estrutura é If + Present Simple, ... will + verbo base.' },
+                q62: { ans: 'b', text: 'Contraste', justification: 'A palavra however funciona como um operador de coesão que introduz uma ideia de contraste ou oposição.' },
+                q63: { ans: 'a', text: 'You must wear a helmet.', justification: 'O verbo modal must expressa uma obrigação forte ou necessidade.' },
+                q64: { ans: 'c', text: 'so', justification: 'So é um conector que expressa consequência ou resultado, conectando a causa (o filme ser bom) ao efeito (chorar).' },
+                q65: { ans: 'a', text: 'but', justification: 'But é um conector de oposição, unindo a ideia de ter muito dinheiro (conotação positiva) com a de não ser feliz (conotação negativa).' },
+                q66: { ans: 'b', text: 'Uso de opiniões e adjetivos de valor.', justification: 'Em textos argumentativos, a persuasão é frequentemente alcançada com o uso de adjetivos e opiniões de valor, enquanto um texto informativo se concentraria em fatos.' },
+                q67: { ans: 'b', text: 'Criar uma frase curta e memorável para o produto.', justification: 'O slogan é uma frase curta e fácil de lembrar, usada para promover um produto ou ideia.' },
+                q68: { ans: 'a', text: 'Abreviações e uso de números para substituir letras.', justification: 'Internetês é caracterizado por formas de escrita informais, abreviações e substituições de letras, o que é um dos objetos de conhecimento da BNCC para o 9º ano.' },
+                q69: { ans: 'a', text: 'Uma reunião para resumir informações importantes.', justification: 'Um briefing é uma reunião informativa para instruir ou atualizar pessoas sobre um determinado assunto, que é o que a BNCC espera que os alunos compreendam ao se referirem a linguagem do mundo do trabalho.' },
+                q70: { ans: 'b', text: 'livrar-se de algo', justification: 'A expressão to get rid of significa descartar, eliminar ou livrar-se de algo.' },
+                q71: { ans: 'c', text: 'Distinguir fatos de opiniões em textos argumentativos.', justification: 'Esta é uma das habilidades de leitura crítica esperadas para o 9º ano, conforme a BNCC, que prevê a distinção entre fatos e opiniões em textos argumentativos.' },
+                q72: { ans: 'b', text: 'uma obrigação.', justification: 'A expressão have to indica uma obrigação ou necessidade.' },
+                q73: { ans: 'b', text: 'This is the car which belongs to the boy.', justification: 'O pronome relativo which é usado para se referir a objetos, como car.' },
+                q74: { ans: 'c', text: 'Cobertura da mídia', justification: 'Media coverage refere-se à forma como a mídia cobre ou reporta um evento, tema ou situação.' },
+                q75: { ans: 'b', text: 'Uma situação hipotética no presente ou futuro.', justification: 'O second conditional é usado para falar sobre situações hipotéticas ou improváveis no presente ou futuro, com a estrutura If + Past Simple, ... would + verbo base.' },
+                q76: { ans: 'b', text: 'Laughing out loud', justification: 'LOL é uma abreviação comum na internet que significa Laughing out loud, que se traduz como rindo muito alto.' },
+                q77: { ans: 'b', text: 'Produzir textos que revelem um posicionamento crítico sobre temas de interesse coletivo.', justification: 'Uma das habilidades de escrita para o 9º ano é a produção de textos que revelem um posicionamento crítico sobre temas de interesse local ou global.' },
+                q78: { ans: 'b', text: 'Que sua expansão está ligada a processos de colonização e poder.', justification: 'A BNCC espera que os alunos do 9º ano debatam sobre a expansão da língua inglesa pelo mundo, em função do processo de colonização, reconhecendo o seu papel no intercâmbio científico, econômico e político.' },
+                q79: { ans: 'c', text: 'should', justification: 'Should é o verbo modal mais adequado para expressar uma recomendação ou conselho.' },
+                q80: { ans: 'a', text: 'ambiente', justification: 'Environment é um cognato transparente em português, significando ambiente.' }
+            };
+
+            const answersem1 = {
+                q81: { ans: 'c', text: 'Uma possibilidade.', justification: 'O verbo modal may é usado para expressar possibilidade, o que reflete a habilidade de compreender a função dos modais em contextos específicos.' },
+                q82: { ans: 'c', text: 'I have seen that movie.', justification: 'O Passado Perfeito é formado por have ou has e o particípio passado do verbo. Seen é o particípio passado de see.' },
+                q83: { ans: 'a', text: 'The book was written by a famous author.', justification: 'A voz passiva é usada para enfatizar a ação ou o objeto que a recebe. Sua estrutura é verbo to be + particípio passado do verbo principal.' },
+                q84: { ans: 'b', text: 'much', justification: 'Much é o quantificador correto para substantivos incontáveis como money. Many seria usado para substantivos contáveis.' },
+                q85: { ans: 'c', text: 'might', justification: 'Might é um verbo modal usado para expressar especulação ou uma possibilidade fraca, que se encaixa bem com a expressão de dúvida na frase.' },
+                q86: { ans: 'c', text: 'because', justification: 'Because é um conector que introduz uma causa ou razão, uma habilidade avançada de análise linguística.' },
+                q87: { ans: 'b', text: 'Apresentar um resumo conciso da trama.', justification: 'Uma sinopse tem como função principal resumir a história de uma obra para o leitor. Esta habilidade de identificar a função social de um gênero textual é essencial.' },
+                q88: { ans: 'b', text: 'who', justification: 'O pronome relativo who é usado para se referir a pessoas e é a escolha correta para introduzir uma oração não-restritiva sobre the students.' },
+                q89: { ans: 'a', text: 'Repetição de uma ação.', justification: 'O prefixo re- é usado para indicar uma repetição da ação expressa pelo verbo principal. A BNCC para o Ensino Médio abrange a análise e utilização de morfemas para a construção de sentidos.' },
+                q90: { ans: 'b', text: 'Consegue se comunicar em duas línguas.', justification: 'Bilingual é um termo que se refere a uma pessoa que fala duas línguas, alinhando-se com a dimensão intercultural da BNCC, que prevê a discussão de como diferentes idiomas e culturas interagem.' },
+                q91: { ans: 'b', text: 'look up', justification: 'O phrasal verb look up significa procurar (algo em um dicionário ou lista) ou descobrir.' },
+                q92: { ans: 'c', text: 'Expressar um ponto de vista pessoal.', justification: 'A expressão in my opinion é um recurso linguístico usado para marcar uma opinião pessoal, fundamental para a participação em debates de forma ética.' },
+                q93: { ans: 'b', text: 'A frase identifica uma consequência negativa da tecnologia.', justification: 'A habilidade de analisar o impacto das tecnologias digitais envolve, entre outras coisas, identificar as consequências sociais negativas, como a solidão. A BNCC aborda a avaliação do impacto das tecnologias digitais na formação do sujeito.' },
+                q94: { ans: 'b', text: 'Uma expressão cujo significado não pode ser deduzido das palavras individualmente.', justification: 'Um idiom é uma expressão idiomática, ou seja, seu significado é figurado e não literal. A compreensão de figuras de linguagem é uma habilidade para este nível.' },
+                q95: { ans: 'b', text: 'which', justification: 'Which é o pronome relativo usado para se referir a coisas, como book.' },
+                q96: { ans: 'b', text: 'Comparar diferentes reportagens sobre o mesmo evento para entender os vieses.', justification: 'A análise de discursos e a identificação de preconceitos e vieses são habilidades centrais da Competência Específica 1 para a área de Linguagens.' },
+                q97: { ans: 'a', text: 'You should drink water every day.', justification: 'O verbo modal should é usado para expressar conselho ou recomendação, não uma obrigação forte como must.' },
+                q98: { ans: 'c', text: 'Patrimônio cultural.', justification: 'Cultural heritage é uma expressão que significa patrimônio cultural, um conceito abordado nas competências do Ensino Médio.' },
+                q99: { ans: 'b', text: 'Eu fui para Londres e voltei.', justification: 'O Present Perfect (I have been to) é usado para falar de experiências de vida, indicando que a pessoa esteve no lugar e já retornou.' },
+                q100: { ans: 'c', text: 'Tomar uma decisão.', justification: 'To make a decision é a expressão correta para tomar uma decisão. A BNCC valoriza a autonomia e a capacidade de tomar decisões na vida pessoal e coletiva.' }
+            };
+
+            const answersem2 = {
+                q101: { ans: 'a', text: 'would have', justification: 'O Third Conditional é usado para falar de situações hipotéticas no passado e suas consequências. Sua estrutura é If + Past Perfect, ... would have + Past Participle.' },
+                q102: { ans: 'b', text: 'A strong deduction about the past.', justification: 'A combinação must have + Past Participle é utilizada para expressar uma dedução forte ou uma conclusão lógica sobre uma situação no passado.' },
+                q103: { ans: 'a', text: 'A new product will be launched by the company.', justification: 'A voz passiva na forma futura é construída com will be + particípio passado do verbo principal.' },
+                q104: { ans: 'a', text: 'He said that he was a student.', justification: 'No Reported Speech, o tempo verbal muda. O Present Simple (am) na fala direta se torna Past Simple (was) na fala reportada.' },
+                q105: { ans: 'a', text: 'should have', justification: 'O verbo modal should have + Past Participle é usado para expressar arrependimento ou crítica sobre uma ação passada que não foi feita ou foi mal feita.' },
+                q106: { ans: 'b', text: '"A reciclagem salvou 100 árvores no ano passado, segundo uma ONG ambiental."', justification: 'Um argumento de autoridade baseia-se na citação de uma fonte confiável para validar uma afirmação.' },
+                q107: { ans: 'b', text: 'Comparar diferentes reportagens sobre o mesmo evento para identificar vieses editoriais.', justification: 'Esta habilidade, presente na Competência Específica 1, envolve a análise crítica de diferentes fontes e a identificação de vieses ou ideologias.' },
+                q108: { ans: 'b', text: 'although', justification: 'Although é um conector de contraste que se encaixa perfeitamente na frase, ligando a ideia de talento com a de falta de experiência.' },
+                q109: { ans: 'b', text: 'Uma quantidade excessiva.', justification: 'O prefixo over- indica uma quantidade excessiva.' },
+                q110: { ans: 'a', text: 'give up', justification: 'O phrasal verb give up significa desistir.' },
+                q111: { ans: 'b', text: 'A influência das redes sociais na auto-estima.', justification: 'A BNCC espera que os alunos avaliem o impacto das tecnologias digitais em suas práticas sociais, incluindo a dimensão afetiva e a auto-estima.' },
+                q112: { ans: 'a', text: 'The movie, which was released last year, won many awards.', justification: 'Which é o pronome relativo correto para se referir a movie e a oração é não-restritiva (extra information), marcada pelas vírgulas.' },
+                q113: { ans: 'b', text: 'In conclusion,', justification: 'A expressão in conclusion é a forma padrão de iniciar a conclusão de um texto.' },
+                q114: { ans: 'b', text: 'Precisamos falar sobre um problema óbvio que todos evitam.', justification: 'Esta é uma expressão idiomática que significa discutir um assunto desconfortável que é óbvio para todos.' },
+                q115: { ans: 'c', text: 'Há multiplicidade e variedade de usos, usuários e funções da língua.', justification: 'A BNCC do Ensino Médio define o inglês como "língua de uso mundial" e enfatiza a multiplicidade de usos, usuários e funções, em oposição a uma visão homogênea.' },
+                q116: { ans: 'b', text: 'Um indivíduo que se vê como parte de uma comunidade global.', justification: 'A expressão global citizen refere-se a um indivíduo com consciência de sua interconexão com o mundo.' },
+                q117: { ans: 'a', text: 'The letter was written by her.', justification: 'A estrutura da voz passiva no passado é was + particípio passado.' },
+                q118: { ans: 'b', text: '"thesis", "hypothesis", "analysis"', justification: 'Estes termos são de natureza acadêmica e científica, vocabulário que os alunos devem desenvolver para interagir em diferentes campos de conhecimento.' },
+                q119: { ans: 'b', text: 'Eu fui para Londres e voltei.', justification: 'O Present Perfect (I have been to) é usado para falar de experiências de vida, indicando que a pessoa esteve no lugar e já retornou.' },
+                q120: { ans: 'b', text: 'Um arrependimento sobre o passado.', justification: 'A estrutura I wish + Past Perfect é usada para expressar arrependimento sobre algo que aconteceu (ou não aconteceu) no passado.' }
+            };
+
+            const answersem3 = {
+                q121: { ans: 'b', text: 'I want to put the meeting off.', justification: 'Phrasal verbs como put off (adiar) são verbos separáveis, ou seja, o objeto (neste caso, the meeting) pode ficar entre o verbo e a preposição.' },
+                q122: { ans: 'a', text: 'Past Simple', justification: 'O tempo verbal reported (relatado) é um Past Simple.' },
+                q123: { ans: 'c', text: 'Although', justification: 'Although é um conector de contraste que introduz uma ideia oposta à principal.' },
+                q124: { ans: 'b', text: 'Third Conditional, que expressa um arrependimento no passado.', justification: 'O Third Conditional é usado para expressar uma condição hipotética no passado e seu resultado também no passado. Sua estrutura é If + Past Perfect, ... would have + Past Participle.' },
+                q125: { ans: 'c', text: 'He must have forgotten his keys.', justification: 'A forma correta para expressar uma dedução forte sobre o passado é must have + Past Participle.' },
+                q126: { ans: 'b', text: 'Refutação de um contra-argumento.', justification: 'A frase Some people claim... but studies show... é uma estratégia para refutar um argumento contrário ao que se defende. A BNCC para o Ensino Médio exige que os alunos saibam debater questões polêmicas e analisar argumentos e contra-argumentos.' },
+                q127: { ans: 'a', text: 'Um artigo de jornal que apresenta um viés político em sua reportagem.', justification: 'Esta opção representa a habilidade de analisar criticamente o conteúdo das mídias, identificando vieses e ideologias implícitas.' },
+                q128: { ans: 'b', text: 'Library', justification: 'Library (biblioteca) é um falso cognato para a palavra em português livraria.' },
+                q129: { ans: 'c', text: 'A campanha publicitária.', justification: 'O pronome which refere-se à campanha publicitária, que é o antecedente da oração. O uso de vírgulas indica que a informação é extra e não-restritiva.' },
+                q130: { ans: 'a', text: 'Entender o que é implícito em um texto.', justification: 'A expressão to read between the lines significa entender o que não é dito de forma explícita.' },
+                q131: { ans: 'b', text: 'Uma obrigação.', justification: 'A expressão have to indica uma obrigação ou necessidade, similar ao verbo modal must.' },
+                q132: { ans: 'b', text: 'Ambíguo', justification: 'Ambiguous é um cognato em português que significa ambíguo, algo que pode ter mais de um significado.' },
+                q133: { ans: 'c', text: 'Uso da voz passiva e da terceira pessoa.', justification: 'Em textos científicos, o uso da voz passiva e da terceira pessoa confere um tom mais impessoal e objetivo.' },
+                q134: { ans: 'b', text: 'influence', justification: 'A palavra influence (influência) se encaixa gramaticalmente e semanticamente na frase como um substantivo.' },
+                q135: { ans: 'b', text: '"thesis", "hypothesis", "analysis"', justification: 'Estes termos são de natureza acadêmica e científica, vocabulário que os alunos devem desenvolver para interagir em diferentes campos de conhecimento.' },
+                q136: { ans: 'c', text: 'Analisar a origem e o propósito de um meme político antes de compartilhá-lo.', justification: 'Esta habilidade envolve a análise crítica de conteúdo digital, uma competência central da BNCC.' },
+                q137: { ans: 'b', text: 'Ele é uma língua de uso mundial com variedade de usos e usuários.', justification: 'A BNCC do Ensino Médio define o inglês como "língua de uso mundial" e enfatiza a multiplicidade de usos, usuários e funções.' },
+                q138: { ans: 'a', text: 'Aquecimento global', justification: 'Global warming é um termo técnico que se traduz como aquecimento global.' },
+                q139: { ans: 'c', text: 'Descreve uma ação que começou no passado e tem relação com o presente.', justification: 'O Present Perfect é usado para expressar ações que ocorreram em um passado recente ou que ainda têm impacto no presente.' },
+                q140: { ans: 'a', text: 'Gerenciar uma empresa.', justification: 'To run a company é uma expressão idiomática que significa gerenciar ou administrar uma empresa.' }
+            };
+
+            document.querySelectorAll('.test-selection-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    selectionContainer.style.display = 'none';
+                    resultBox.style.display = 'none';
+                    if (this.id === 'select-6th-grade') {
+                        grade6Container.style.display = 'block';
+                        setupTest(grade6Container, answers6th);
+                    } else if (this.id === 'select-7th-grade') {
+                        grade7Container.style.display = 'block';
+                        setupTest(grade7Container, answers7th);
+                    } else if (this.id === 'select-8th-grade') {
+                        grade8Container.style.display = 'block';
+                        setupTest(grade8Container, answers8th);
+                    } else if (this.id === 'select-9th-grade') {
+                        grade9Container.style.display = 'block';
+                        setupTest(grade9Container, answers9th);
+                    } else if (this.id === 'select-em1-grade') {
+                        gradeem1Container.style.display = 'block';
+                        setupTest(gradeem1Container, answersem1);
+                    } else if (this.id === 'select-em2-grade') {
+                        gradeem2Container.style.display = 'block';
+                        setupTest(gradeem2Container, answersem2);
+                    } else if (this.id === 'select-em3-grade') {
+                        gradeem3Container.style.display = 'block';
+                        setupTest(gradeem3Container, answersem3);
+                    }
+                });
+            });
+
+            document.addEventListener('click', function(event) {
+                if (event.target.id === 'back-to-menu-btn') {
+                    grade6Container.style.display = 'none';
+                    grade7Container.style.display = 'none';
+                    grade8Container.style.display = 'none';
+                    grade9Container.style.display = 'none';
+                    gradeem1Container.style.display = 'none';
+                    gradeem2Container.style.display = 'none';
+                    gradeem3Container.style.display = 'none';
+                    resultBox.style.display = 'none';
+                    selectionContainer.style.display = 'block';
+            
+                    const forms = document.querySelectorAll('form');
+                    forms.forEach(form => {
+                        form.reset();
+                        form.style.display = 'block';
+                        const userNameInput = form.querySelector('input[type="text"]');
+                        if(userNameInput) userNameInput.value = '';
+                    });
+                }
+            });
+
+            function setupTest(testContainer, answers) {
+                const form = testContainer.querySelector('form');
+                const totalQuestions = Object.keys(answers).length;
+
+                form.addEventListener('submit', function(event) {
+                    const userNameInput = form.querySelector('input[type="text"]');
+                    if (userNameInput && userNameInput.value.trim() === '') {
+                        alert('Por favor, digite seu nome para continuar.');
+                        event.preventDefault();
+                        return;
+                    }
+                    event.preventDefault();
+                    let score = 0;
+                    const wrongAnswers = [];
+
+                    for (const questionName in answers) {
+                        const selectedOption = form.querySelector(`input[name="${questionName}"]:checked`);
+                        const questionElement = form.querySelector(`input[name="${questionName}"]`).closest('.question');
+                        const questionNumber = questionElement.querySelector('p').innerText.match(/^\d+/)[0];
+                        const questionText = questionElement.querySelector('p').innerText.replace(/^\d+\.\s*/, '').trim();
+
+                        if (selectedOption) {
+                            if (selectedOption.value === answers[questionName].ans) {
+                                score++;
+                            } else {
+                                const selectedLabel = form.querySelector(`label[for="${questionName}-${selectedOption.value}"]`);
+                                const selectedText = selectedLabel ? selectedLabel.textContent.trim() : `Opção ${selectedOption.value.toUpperCase()}`;
+                                
+                                wrongAnswers.push({
+                                    questionText: `${questionNumber}. ${questionText}`,
+                                    selectedAnswer: selectedText,
+                                    correctAnswerText: answers[questionName].text,
+                                    justification: answers[questionName].justification
+                                });
+                            }
+                        } else {
+                            wrongAnswers.push({
+                                questionText: `${questionNumber}. ${questionText}`,
+                                selectedAnswer: 'Não respondida',
+                                correctAnswerText: answers[questionName].text,
+                                justification: answers[questionName].justification
+                            });
+                        }
+                    }
+
+                    const percentage = (score / totalQuestions) * 100;
+                    let progressBarColor;
+                    if (percentage <= 40) {
+                        progressBarColor = 'red';
+                    } else if (percentage <= 70) {
+                        progressBarColor = 'yellow';
+                    } else {
+                        progressBarColor = 'green';
+                    }
+
+                    let wrongAnswersHtml = '';
+                    if (wrongAnswers.length > 0) {
+                        wrongAnswersHtml = '<h3>Questões Incorretas:</h3><ul class="wrong-answers-list">';
+                        wrongAnswers.forEach(item => {
+                            wrongAnswersHtml += `
+                                <li>
+                                    <strong>${item.questionText}</strong><br>
+                                    Sua resposta: ${item.selectedAnswer}<br>
+                                    Resposta correta: ${item.correctAnswerText}<br>
+                                    <p><strong>Justificativa:</strong> ${item.justification}</p>
+                                </li>
+                            `;
+                        });
+                        wrongAnswersHtml += '</ul>';
+                    }
+
+                    resultBox.style.display = 'block';
+                    resultBox.innerHTML = `
+                        <h3>Resultado Final</h3>
+                        <p class="result-score">Você acertou ${score} de ${totalQuestions} questões.</p>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar ${progressBarColor}" style="width: ${percentage}%">${Math.round(percentage)}%</div>
+                        </div>
+                        ${wrongAnswersHtml}
+                        <button id="back-to-menu-btn" class="back-to-menu-btn">Voltar ao Menu Principal</button>
+                    `;
+
+                    form.style.display = 'none';
+                    testContainer.querySelector('.instructions').style.display = 'none';
+                });
+            }
+        });
+    </script>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Teste de Nível de Inglês</h1>
+        <h2>Prof. Johnatan Willow</h2>
+
+        <div id="test-selection-container" class="test-selection-container">
+            <div class="test-selection-block">
+                <h3>Ensino Fundamental</h3>
+                <button id="select-6th-grade" class="test-selection-btn fundamental-btn">6º Ano</button>
+                <button id="select-7th-grade" class="test-selection-btn fundamental-btn">7º Ano</button>
+                <button id="select-8th-grade" class="test-selection-btn fundamental-btn">8º Ano</button>
+                <button id="select-9th-grade" class="test-selection-btn fundamental-btn">9º Ano</button>
+            </div>
+            <div class="test-selection-block">
+                <h3>Ensino Médio</h3>
+                <button id="select-em1-grade" class="test-selection-btn medio-btn">1ª Série EM</button>
+                <button id="select-em2-grade" class="test-selection-btn medio-btn">2ª Série EM</button>
+                <button id="select-em3-grade" class="test-selection-btn medio-btn">3ª Série EM</button>
+            </div>
+        </div>
+
+        <div id="test6th-grade-container" style="display: none;">
+            <div class="instructions">
+                <p>Com base nos documentos da Base Nacional Comum Curricular (BNCC), foi preparado um teste de 20 questões de múltipla escolha para alunos do 6º ano, com a dificuldade e o foco esperados para este período escolar.</p>
+                <p>Este teste aborda tópicos como o uso do verbo to be, o presente simples para rotinas, o presente contínuo para ações em andamento, vocabulário básico sobre família e rotina diária, e estratégias de leitura como o uso de cognatos.</p>
+                <h4>Instruções para o Aluno:</h4>
+                <ul>
+                    <li>Leia cada pergunta com atenção.</li>
+                    <li>Escolha a alternativa correta (a, b ou c).</li>
+                    <li>Se não souber a resposta, escolha a alternativa "I don't know" (d).</li>
+                    <li>É preciso digitar o nome para que as respostas possam ser enviadas.</li>
+                </ul>
+            </div>
+            <form id="leveling-test-form-6th">
+                <div class="name-input-container">
+                    <input type="text" id="userName6th" placeholder="Digite seu nome">
+                </div>
+                <div class="question">
+                    <p>1. Complete a frase: "My name _____ Sarah and I _____ from Brazil."</p>
+                    <div class="options">
+                        <label><input type="radio" name="q1" value="a" id="q1-a"> a) is / are</label>
+                        <label><input type="radio" name="q1" value="b" id="q1-b"> b) am / is</label>
+                        <label><input type="radio" name="q1" value="c" id="q1-c"> c) is / am</label>
+                        <label><input type="radio" name="q1" value="d" id="q1-d"> d) I don't know</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>2. Escolha a frase que descreve a rotina diária corretamente.</p>
+                    <div class="options">
+                        <label><input type="radio" name="q2" value="a" id="q2-a"> a) He is go to school every morning.</label>
+                        <label><input type="radio" name="q2" value="b" id="q2-b"> b) He goes to school every morning.</label>
+                        <label><input type="radio" name="q2" value="c" id="q2-c"> c) He go to school every morning.</label>
+                        <label><input type="radio" name="q2" value="d" id="q2-d"> d) I don't know</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>3. Qual é a pergunta correta para saber a idade de alguém?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q3" value="a" id="q3-a"> a) How old you are?</label>
+                        <label><input type="radio" name="q3" value="b" id="q3-b"> b) How old is you?</label>
+                        <label><input type="radio" name="q3" value="c" id="q3-c"> c) How old are you?</label>
+                        <label><input type="radio" name="q3" value="d" id="q3-d"> d) I don't know</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>4. Complete a frase com o adjetivo possessivo correto: "I have a book. _____ book is in my backpack."</p>
+                    <div class="options">
+                        <label><input type="radio" name="q4" value="a" id="q4-a"> a) Your</label>
+                        <label><input type="radio" name="q4" value="b" id="q4-b"> b) My</label>
+                        <label><input type="radio" name="q4" value="c" id="q4-c"> c) Her</label>
+                        <label><input type="radio" name="q4" value="d" id="q4-d"> d) I don't know</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>5. Leia a frase: "The students' books are new." A quem pertencem os livros?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q5" value="a" id="q5-a"> a) A um estudante</label>
+                        <label><input type="radio" name="q5" value="b" id="q5-b"> b) A muitos estudantes</label>
+                        <label><input type="radio" name="q5" value="c" id="q5-c"> c) Ao professor</label>
+                        <label><input type="radio" name="q5" value="d" id="q5-d"> d) I don't know</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>6. Observe a imagem e complete a frase: "The dog is _____ the box."(Imagine uma imagem de um cachorro dentro de uma caixa.)</p>
+                    <div class="options">
+                        <label><input type="radio" name="q6" value="a" id="q6-a"> a) on</label>
+                        <label><input type="radio" name="q6" value="b" id="q6-b"> b) under</label>
+                        <label><input type="radio" name="q6" value="c" id="q6-c"> c) in</label>
+                        <label><input type="radio" name="q6" value="d" id="q6-d"> d) I don't know</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>7. Qual frase usa o presente contínuo corretamente para descrever uma ação que está acontecendo agora?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q7" value="a" id="q7-a"> a) They playing soccer now.</label>
+                        <label><input type="radio" name="q7" value="b" id="q7-b"> b) They are playing soccer now.</label>
+                        <label><input type="radio" name="q7" value="c" id="q7-c"> c) They play soccer now.</label>
+                        <label><input type="radio" name="q7" value="d" id="q7-d"> d) I don't know</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>8. Se o professor disser "Listen and repeat", ele está dando uma instrução. Qual destas frases é um comando de sala de aula?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q8" value="a" id="q8-a"> a) The students are listening.</label>
+                        <label><input type="radio" name="q8" value="b" id="q8-b"> b) Listen to me.</label>
+                        <label><input type="radio" name="q8" value="c" id="q8-c"> c) He listened to me.</label>
+                        <label><input type="radio" name="q8" value="d" id="q8-d"> d) I don't know</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>9. Qual é o plural correto de "child"?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q9" value="a" id="q9-a"> a) childs</label>
+                        <label><input type="radio" name="q9" value="b" id="q9-b"> b) childrens</label>
+                        <label><input type="radio" name="q9" value="c" id="q9-c"> c) children</label>
+                        <label><input type="radio" name="q9" value="d" id="q9-d"> d) I don't know</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>10. A palavra "animal" tem uma forma parecida em português. Qual é essa forma?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q10" value="a" id="q10-a"> a) Animal</label>
+                        <label><input type="radio" name="q10" value="b" id="q10-b"> b) Animação</label>
+                        <label><input type="radio" name="q10" value="c" id="q10-c"> c) Anormal</label>
+                        <label><input type="radio" name="q10" value="d" id="q10-d"> d) I don't know</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>11. Qual palavra está escrita incorretamente?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q11" value="a" id="q11-a"> a) Saturday</label>
+                        <label><input type="radio" name="q11" value="b" id="q11-b"> b) Tuesday</label>
+                        <label><input type="radio" name="q11" value="c" id="q11-c"> c) Mondai</label>
+                        <label><input type="radio" name="q11" value="d" id="q11-d"> d) I don't know</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>12. A palavra "delicious" em português significa...</p>
+                    <div class="options">
+                        <label><input type="radio" name="q12" value="a" id="q12-a"> a) difícil</label>
+                        <label><input type="radio" name="q12" value="b" id="q12-b"> b) delicioso</label>
+                        <label><input type="radio" name="q12" value="c" id="q12-c"> c) diligente</label>
+                        <label><input type="radio" name="q12" value="d" id="q12-d"> d) I don't know</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>13. Para falar sobre a cor de um objeto, você diria: "The pencil is _____".</p>
+                    <div class="options">
+                        <label><input type="radio" name="q13" value="a" id="q13-a"> a) is yellow</label>
+                        <label><input type="radio" name="q13" value="b" id="q13-b"> b) yellow</label>
+                        <label><input type="radio" name="q13" value="c" id="q13-c"> c) color yellow</label>
+                        <label><input type="radio" name="q13" value="d" id="q13-d"> d) I don't know</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>14. Qual é o nome do mês que vem depois de October?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q14" value="a" id="q14-a"> a) December</label>
+                        <label><input type="radio" name="q14" value="b" id="q14-b"> b) November</label>
+                        <label><input type="radio" name="q14" value="c" id="q14-c"> c) September</label>
+                        <label><input type="radio" name="q14" value="d" id="q14-d"> d) I don't know</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>15. Qual palavra completa o diálogo?</p>
+                    <p>"Hi, how are you?"</p>
+                    <p>"I'm fine, thanks. And _____?"</p>
+                    <div class="options">
+                        <label><input type="radio" name="q15" value="a" id="q15-a"> a) you</label>
+                        <label><input type="radio" name="q15" value="b" id="q15-b"> b) your</label>
+                        <label><input type="radio" name="q15" value="c" id="q15-c"> c) he</label>
+                        <label><input type="radio" name="q15" value="d" id="q15-d"> d) I don't know</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>16. Qual frase é um exemplo de vocabulário sobre esportes?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q16" value="a" id="q16-a"> a) I like to read books.</label>
+                        <label><input type="radio" name="q16" value="b" id="q16-b"> b) I like to watch movies.</label>
+                        <label><input type="radio" name="q16" value="c" id="q16-c"> c) I like to play basketball.</label>
+                        <label><input type="radio" name="q16" value="d" id="q16-d"> d) I don't know</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>17. Se father é pai e mother é mãe, o que é sister?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q17" value="a" id="q17-a"> a) Irmã</label>
+                        <label><input type="radio" name="q17" value="b" id="q17-b"> b) Prima</label>
+                        <label><input type="radio" name="q17" value="c" id="q17-c"> c) Tia</label>
+                        <label><input type="radio" name="q17" value="d" id="q17-d"> d) I don't know</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>18. Qual das opções é um adjetivo?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q18" value="a" id="q18-a"> a) Run</label>
+                        <label><input type="radio" name="q18" value="b" id="q18-b"> b) Table</label>
+                        <label><input type="radio" name="q18" value="c" id="q18-c"> c) Happy</label>
+                        <label><input type="radio" name="q18" value="d" id="q18-d"> d) I don't know</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>19. Qual dos países a seguir tem o inglês como uma das línguas oficiais?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q19" value="a" id="q19-a"> a) Brazil</label>
+                        <label><input type="radio" name="q19" value="b" id="q19-b"> b) Mexico</label>
+                        <label><input type="radio" name="q19" value="c" id="q19-c"> c) Canada</label>
+                        <label><input type="radio" name="q19" value="d" id="q19-d"> d) I don't know</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>20. Complete a frase: "One, two, three, four, five, six, seven, eight, nine, _____".</p>
+                    <div class="options">
+                        <label><input type="radio" name="q20" value="a" id="q20-a"> a) eleven</label>
+                        <label><input type="radio" name="q20" value="b" id="q20-b"> b) twelve</label>
+                        <label><input type="radio" name="q20" value="c" id="q20-c"> c) ten</label>
+                        <label><input type="radio" name="q20" value="d" id="q20-d"> d) I don't know</label>
+                    </div>
+                </div>
+                <button type="submit" class="submit-btn">Enviar Respostas</button>
+            </form>
+        </div>
+
+        <div id="test7th-grade-container" style="display: none;">
+            <div class="instructions">
+                <p>Com base nos documentos da Base Nacional Comum Curricular (BNCC), foi preparado um teste de 20 questões de múltipla escolha para alunos do 7º ano, com a dificuldade e o foco esperados para este período escolar.</p>
+                <p>Este teste foi elaborado para avaliar o conhecimento dos alunos sobre gramática (passado simples, passado contínuo, pronomes), vocabulário contextualizado e compreensão de texto, conforme a progressão de aprendizado esperada para o 7º ano.</p>
+                <h4>Instruções para o Aluno:</h4>
+                <ul>
+                    <li>Leia cada pergunta com atenção.</li>
+                    <li>Escolha a alternativa correta (a, b ou c).</li>
+                    <li>Se não souber a resposta, escolha a alternativa "I don't know" (d).</li>
+                    <li>É preciso digitar o nome para que as respostas possam ser enviadas.</li>
+                </ul>
+            </div>
+            <form id="leveling-test-form-7th">
+                <div class="name-input-container">
+                    <input type="text" id="userName7th" placeholder="Digite seu nome">
+                </div>
+                <div class="question">
+                    <p>1. Complete a frase com o verbo no Passado Simples: "She _____ born in 1990."</p>
+                    <div class="options">
+                        <label><input type="radio" name="q21" value="a" id="q21-a"> a) is</label>
+                        <label><input type="radio" name="q21" value="b" id="q21-b"> b) was</label>
+                        <label><input type="radio" name="q21" value="c" id="q21-c"> c) were</label>
+                        <label><input type="radio" name="q21" value="d" id="q21-d"> d) I don't know</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>2. Escolha a frase que descreve uma ação que estava em andamento no passado.</p>
+                    <div class="options">
+                        <label><input type="radio" name="q22" value="a" id="q22-a"> a) I played soccer yesterday.</label>
+                        <label><input type="radio" name="q22" value="b" id="q22-b"> b) I was playing soccer when it started to rain.</label>
+                        <label><input type="radio" name="q22" value="c" id="q22-c"> c) I play soccer every day.</label>
+                        <label><input type="radio" name="q22" value="d" id="q22-d"> d) I don't know</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>3. Qual é a forma correta do verbo study no Passado Simples para she?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q23" value="a" id="q23-a"> a) studyed</label>
+                        <label><input type="radio" name="q23" value="b" id="q23-b"> b) studied</label>
+                        <label><input type="radio" name="q23" value="c" id="q23-c"> c) studys</label>
+                        <label><input type="radio" name="q23" value="d" id="q23-d"> d) I don't know</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>4. Qual das opções a seguir é um pronome de objeto?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q24" value="a" id="q24-a"> a) he</label>
+                        <label><input type="radio" name="q24" value="b" id="q24-b"> b) them</label>
+                        <label><input type="radio" name="q24" value="c" id="q24-c"> c) we</label>
+                        <label><input type="radio" name="q24" value="d" id="q24-d"> d) I don't know</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>5. Leia o trecho: "Marie Curie, a Polish and naturalized-French physicist, was a pioneer in radioactivity." Qual das palavras é um cognato?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q25" value="a" id="q25-a"> a) pioneer</label>
+                        <label><input type="radio" name="q25" value="b" id="q25-b"> b) physicist</label>
+                        <label><input type="radio" name="q25" value="c" id="q25-c"> c) radioactivity</label>
+                        <label><input type="radio" name="q25" value="d" id="q25-d"> d) I don't know</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>6. O verbo modal can no passado é usado para falar sobre uma habilidade. Qual a forma no passado?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q26" value="a" id="q26-a"> a) caned</label>
+                        <label><input type="radio" name="q26" value="b" id="q26-b"> b) could</label>
+                        <label><input type="radio" name="q26" value="c" id="q26-c"> c) can't</label>
+                        <label><input type="radio" name="q26" value="d" id="q26-d"> d) I don't know</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>7. Complete a frase: "The teacher gave the books to _____."</p>
+                    <div class="options">
+                        <label><input type="radio" name="q27" value="a" id="q27-a"> a) he</label>
+                        <label><input type="radio" name="q27" value="b" id="q27-b"> b) they</label>
+                        <label><input type="radio" name="q27" value="c" id="q27-c"> c) him</label>
+                        <label><input type="radio" name="q27" value="d" id="q27-d"> d) I don't know</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>8. Identifique a frase que contém um verbo no passado.</p>
+                    <div class="options">
+                        <label><input type="radio" name="q28" value="a" id="q28-a"> a) She is talking on the phone.</label>
+                        <label><input type="radio" name="q28" value="b" id="q28-b"> b) They will travel next month.</label>
+                        <label><input type="radio" name="q28" value="c" id="q28-c"> c) I saw a movie last night.</label>
+                        <label><input type="radio" name="q28" value="d" id="q28-d"> d) I don't know</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>9. Qual a tradução correta para "linha do tempo"?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q29" value="a" id="q29-a"> a) timeline</label>
+                        <label><input type="radio" name="q29" value="b" id="q29-b"> b) line of time</label>
+                        <label><input type="radio" name="q29" value="c" id="q29-c"> c) time line</label>
+                        <label><input type="radio" name="q29" value="d" id="q29-d"> d) I don't know</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>10. A palavra actually é um falso cognato. O que ela realmente significa?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q30" value="a" id="q30-a"> a) atualmente</label>
+                        <label><input type="radio" name="q30" value="b" id="q30-b"> b) na verdade</label>
+                        <label><input type="radio" name="q30" value="c" id="q30-c"> c) acidentalmente</label>
+                        <label><input type="radio" name="q30" value="d" id="q30-d"> d) I don't know</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>11. Qual preposição de tempo é usada para meses e anos?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q31" value="a" id="q31-a"> a) on</label>
+                        <label><input type="radio" name="q31" value="b" id="q31-b"> b) at</label>
+                        <label><input type="radio" name="q31" value="c" id="q31-c"> c) in</label>
+                        <label><input type="radio" name="q31" value="d" id="q31-d"> d) I don't know</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>12. Na frase "My friend and I went to the movies", o verbo went é o passado de qual verbo?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q32" value="a" id="q32-a"> a) go</label>
+                        <label><input type="radio" name="q32" value="b" id="q32-b"> b) want</label>
+                        <label><input type="radio" name="q32" value="c" id="q32-c"> c) walk</label>
+                        <label><input type="radio" name="q32" value="d" id="q32-d"> d) I don't know</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>13. Para um blog sobre personalidades históricas, qual dos títulos é mais apropriado?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q33" value="a" id="q33-a"> a) My Daily Routine</label>
+                        <label><input type="radio" name="q33" value="b" id="q33-b"> b) Favorite Hobbies</label>
+                        <label><input type="radio" name="q33" value="c" id="q33-c"> c) Past Figures of Brazil</label>
+                        <label><input type="radio" name="q33" value="d" id="q33-d"> d) I don't know</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>14. Qual das opções é um verbo irregular no passado?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q34" value="a" id="q34-a"> a) worked</label>
+                        <label><input type="radio" name="q34" value="b" id="q34-b"> b) talked</label>
+                        <label><input type="radio" name="q34" value="c" id="q34-c"> c) ate</label>
+                        <label><input type="radio" name="q34" value="d" id="q34-d"> d) I don't know</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>15. Complete o diálogo: "What _____ you do last weekend?" "I visited my grandparents."</p>
+                    <div class="options">
+                        <label><input type="radio" name="q35" value="a" id="q35-a"> a) did</label>
+                        <label><input type="radio" name="q35" value="b" id="q35-b"> b) was</label>
+                        <label><input type="radio" name="q35" value="c" id="q35-c"> c) are</label>
+                        <label><input type="radio" name="q35" value="d" id="q35-d"> d) I don't know</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>16. A habilidade de "explorar o caráter polissêmico de palavras" significa:</p>
+                    <div class="options">
+                        <label><input type="radio" name="q36" value="a" id="q36-a"> a) Usar palavras com um único significado.</label>
+                        <label><input type="radio" name="q36" value="b" id="q36-b"> b) Entender que uma palavra pode ter múltiplos significados dependendo do contexto.</label>
+                        <label><input type="radio" name="q36" value="c" id="q36-c"> c) Criar novas palavras a partir de outras.</label>
+                        <label><input type="radio" name="q36" value="d" id="q36-d"> d) I don't know</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>17. Qual é a tradução de "yesterday"?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q37" value="a" id="q37-a"> a) amanhã</label>
+                        <label><input type="radio" name="q37" value="b" id="q37-b"> b) hoje</label>
+                        <label><input type="radio" name="q37" value="c" id="q37-c"> c) ontem</label>
+                        <label><input type="radio" name="q37" value="d" id="q37-d"> d) I don't know</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>18. A frase "She could swim when she was five" expressa:</p>
+                    <div class="options">
+                        <label><input type="radio" name="q38" value="a" id="q38-a"> a) uma habilidade futura.</label>
+                        <label><input type="radio" name="q38" value="b" id="q38-b"> b) uma habilidade no passado.</label>
+                        <label><input type="radio" name="q38" value="c" id="q38-c"> c) uma ação em andamento.</label>
+                        <label><input type="radio" name="q38" value="d" id="q38-d"> d) I don't know</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>19. Qual das palavras a seguir é um verbo regular no passado?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q39" value="a" id="q39-a"> a) went</label>
+                        <label><input type="radio" name="q39" value="b" id="q39-b"> b) was</label>
+                        <label><input type="radio" name="q39" value="c" id="q39-c"> c) played</label>
+                        <label><input type="radio" name="q39" value="d" id="q39-d"> d) I don't know</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>20. Para um texto sobre a biografia de uma pessoa, qual estrutura é a mais adequada?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q40" value="a" id="q40-a"> a) Título, introdução, fatos cronológicos, conclusão.</label>
+                        <label><input type="radio" name="q40" value="b" id="q40-b"> b) Título, receitas, ingredientes, modo de preparo.</label>
+                        <label><input type="radio" name="q40" value="c" id="q40-c"> c) Título, opinião pessoal, argumentos, conclusão.</label>
+                        <label><input type="radio" name="q40" value="d" id="q40-d"> d) I don't know</label>
+                    </div>
+                </div>
+                <button type="submit" class="submit-btn">Enviar Respostas</button>
+            </form>
+        </div>
+
+        <div id="test8th-grade-container" style="display: none;">
+            <div class="instructions">
+                <p>Com base nos documentos da Base Nacional Comum Curricular (BNCC), preparei um teste de 20 questões de múltipla escolha para alunos do 8º ano, com a dificuldade e o foco esperados para este período escolar. O teste foi elaborado para avaliar o conhecimento dos alunos sobre gramática (futuro, comparativos, superlativos, quantificadores, pronomes relativos), vocabulário e a capacidade de inferir e analisar informações, conforme a BNCC.</p>
+                <h4>Instruções para o Aluno:</h4>
+                <ul>
+                    <li>Leia cada pergunta com atenção.</li>
+                    <li>Escolha a alternativa correta (a, b ou c).</li>
+                    <li>Se não souber a resposta, escolha a alternativa "I don't know" (d).</li>
+                    <li>É preciso digitar o nome para que as respostas possam ser enviadas.</li>
+                </ul>
+            </div>
+            <form id="leveling-test-form-8th">
+                <div class="name-input-container">
+                    <input type="text" id="userName8th" placeholder="Digite seu nome">
+                </div>
+                <div class="question">
+                    <p>1. Escolha a frase correta para falar sobre um plano futuro.</p>
+                    <div class="options">
+                        <label><input type="radio" name="q41" value="a" id="q41-a"> a) I am going to travel next month.</label>
+                        <label><input type="radio" name="q41" value="b" id="q41-b"> b) I will travel next month.</label>
+                        <label><input type="radio" name="q41" value="c" id="q41-c"> c) I am travel next month.</label>
+                        <label><input type="radio" name="q41" value="d" id="q41-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>2. Qual frase compara duas coisas corretamente?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q42" value="a" id="q42-a"> a) My house is biger than your house.</label>
+                        <label><input type="radio" name="q42" value="b" id="q42-b"> b) My house is bigger than your house.</label>
+                        <label><input type="radio" name="q42" value="c" id="q42-c"> c) My house is more bigger than your house.</label>
+                        <label><input type="radio" name="q42" value="d" id="q42-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>3. Qual é a forma superlativa correta do adjetivo 'good'?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q43" value="a" id="q43-a"> a) goodest</label>
+                        <label><input type="radio" name="q43" value="b" id="q43-b"> b) more good</label>
+                        <label><input type="radio" name="q43" value="c" id="q43-c"> c) best</label>
+                        <label><input type="radio" name="q43" value="d" id="q43-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>4. Qual a forma correta de completar a frase: "There isn't _____ water in the bottle."</p>
+                    <div class="options">
+                        <label><input type="radio" name="q44" value="a" id="q44-a"> a) some</label>
+                        <label><input type="radio" name="q44" value="b" id="q44-b"> b) many</label>
+                        <label><input type="radio" name="q44" value="c" id="q44-c"> c) any</label>
+                        <label><input type="radio" name="q44" value="d" id="q44-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>5. Escolha o pronome relativo correto para completar a frase: "The student _____ won the prize is my friend."</p>
+                    <div class="options">
+                        <label><input type="radio" name="q45" value="a" id="q45-a"> a) which</label>
+                        <label><input type="radio" name="q45" value="b" id="q45-b"> b) whose</label>
+                        <label><input type="radio" name="q45" value="c" id="q45-c"> c) who</label>
+                        <label><input type="radio" name="q45" value="d" id="q45-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>6. Na frase "My favorite superhero is the one who flies", a quem o pronome 'who' se refere?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q46" value="a" id="q46-a"> a) the flight itself.</label>
+                        <label><input type="radio" name="q46" value="b" id="q46-b"> b) the speaker.</label>
+                        <label><input type="radio" name="q46" value="c" id="q46-c"> c) the superhero.</label>
+                        <label><input type="radio" name="q46" value="d" id="q46-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>7. O prefixo 'un-' na palavra 'unhappy' tem o mesmo significado que em:</p>
+                    <div class="options">
+                        <label><input type="radio" name="q47" value="a" id="q47-a"> a) unlock</label>
+                        <label><input type="radio" name="q47" value="b" id="q47-b"> b) unusual</label>
+                        <label><input type="radio" name="q47" value="c" id="q47-c"> c) undress</label>
+                        <label><input type="radio" name="q47" value="d" id="q47-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>8. Qual das frases a seguir expressa uma opinião?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q48" value="a" id="q48-a"> a) The Earth is a planet.</label>
+                        <label><input type="radio" name="q48" value="b" id="q48-b"> b) Reading is more interesting than watching TV.</label>
+                        <label><input type="radio" name="q48" value="c" id="q48-c"> c) The sun rises in the east.</label>
+                        <label><input type="radio" name="q48" value="d" id="q48-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>9. Qual palavra é um advérbio formado por um sufixo adicionado a um adjetivo?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q49" value="a" id="q49-a"> a) quickly</label>
+                        <label><input type="radio" name="q49" value="b" id="q49-b"> b) runner</label>
+                        <label><input type="radio" name="q49" value="c" id="q49-c"> c) careful</label>
+                        <label><input type="radio" name="q49" value="d" id="q49-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>10. Na frase: "The project _____ we are working on is very important." Qual pronome relativo se encaixa melhor?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q50" value="a" id="q50-a"> a) who</label>
+                        <label><input type="radio" name="q50" value="b" id="q50-b"> b) whose</label>
+                        <label><input type="radio" name="q50" value="c" id="q50-c"> c) that</label>
+                        <label><input type="radio" name="q50" value="d" id="q50-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>11. Qual é a tradução mais adequada para a palavra challenge?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q51" value="a" id="q51-a"> a) desafio</label>
+                        <label><input type="radio" name="q51" value="b" id="q51-b"> b) desculpa</label>
+                        <label><input type="radio" name="q51" value="c" id="q51-c"> c) chance</label>
+                        <label><input type="radio" name="q51" value="d" id="q51-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>12. Escolha o falso cognato mais comum para a palavra parents.</p>
+                    <div class="options">
+                        <label><input type="radio" name="q52" value="a" id="q52-a"> a) Parentes</label>
+                        <label><input type="radio" name="q52" value="b" id="q52-b"> b) Pais</label>
+                        <label><input type="radio" name="q52" value="c" id="q52-c"> c) Avós</label>
+                        <label><input type="radio" name="q52" value="d" id="q52-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>13. A frase "You must be quiet" expressa:</p>
+                    <div class="options">
+                        <label><input type="radio" name="q53" value="a" id="q53-a"> a) a suggestion</label>
+                        <label><input type="radio" name="q53" value="b" id="q53-b"> b) an obligation</label>
+                        <label><input type="radio" name="q53" value="c" id="q53-c"> c) a possibility</label>
+                        <label><input type="radio" name="q53" value="d" id="q53-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>14. A palavra 'unforgettable' é formada pela adição do prefixo 'un-' e do sufixo '-able' à raiz 'forget'. O que a palavra significa?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q54" value="a" id="q54-a"> a) easy to forget</label>
+                        <label><input type="radio" name="q54" value="b" id="q54-b"> b) not possible to forget</label>
+                        <label><input type="radio" name="q54" value="c" id="q54-c"> c) to forget quickly</label>
+                        <label><input type="radio" name="q54" value="d" id="q54-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>15. Na frase "many students", a palavra 'many' é:</p>
+                    <div class="options">
+                        <label><input type="radio" name="q55" value="a" id="q55-a"> a) comparative</label>
+                        <label><input type="radio" name="q55" value="b" id="q55-b"> b) quantifier</label>
+                        <label><input type="radio" name="q55" value="c" id="q55-c"> c) superlative</label>
+                        <label><input type="radio" name="q55" value="d" id="q55-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>16. Qual é a tradução mais adequada para 'Eu acho que vai chover amanhã'?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q56" value="a" id="q56-a"> a) I am going to rain tomorrow.</label>
+                        <label><input type="radio" name="q56" value="b" id="q56-b"> b) I think it will rain tomorrow.</label>
+                        <label><input type="radio" name="q56" value="c" id="q56-c"> c) I think it is raining tomorrow.</label>
+                        <label><input type="radio" name="q56" value="d" id="q56-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>17. Qual destas palavras é usada para um substantivo contável?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q57" value="a" id="q57-a"> a) much</label>
+                        <label><input type="radio" name="q57" value="b" id="q57-b"> b) many</label>
+                        <label><input type="radio" name="q57" value="c" id="q57-c"> c) a little</label>
+                        <label><input type="radio" name="q57" value="d" id="q57-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>18. Na frase "She is the _____ student in the class," qual forma superlativa se encaixa melhor?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q58" value="a" id="q58-a"> a) more smart</label>
+                        <label><input type="radio" name="q58" value="b" id="q58-b"> b) smarter</label>
+                        <label><input type="radio" name="q58" value="c" id="q58-c"> c) smartest</label>
+                        <label><input type="radio" name="q58" value="d" id="q58-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>19. Qual frase usa um adjetivo superlativo corretamente?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q59" value="a" id="q59-a"> a) This is the most good movie I have ever seen.</label>
+                        <label><input type="radio" name="q59" value="b" id="q59-b"> b) This is the best movie I have ever seen.</label>
+                        <label><input type="radio" name="q59" value="c" id="q59-c"> c) This is the better movie I have ever seen.</label>
+                        <label><input type="radio" name="q59" value="d" id="q59-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>20. A frase "I will probably go to the beach this weekend" expressa:</p>
+                    <div class="options">
+                        <label><input type="radio" name="q60" value="a" id="q60-a"> a) a certainty</label>
+                        <label><input type="radio" name="q60" value="b" id="q60-b"> b) a future possibility</label>
+                        <label><input type="radio" name="q60" value="c" id="q60-c"> c) a past event</label>
+                        <label><input type="radio" name="q60" value="d" id="q60-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <button type="submit" class="submit-btn">Enviar Respostas</button>
+            </form>
+        </div>
+
+        <div id="test9th-grade-container" style="display: none;">
+            <div class="instructions">
+                <p>Com base nos documentos da Base Nacional Comum Curricular (BNCC), preparei um teste de 20 questões de múltipla escolha para alunos do 9º ano, com a dificuldade e o foco esperados para este período escolar.</p>
+                <p>Este teste foi elaborado para avaliar a capacidade dos alunos de expressar pontos de vista, usar argumentos, empregar gramática avançada como orações condicionais e verbos modais, além de habilidades de leitura crítica e compreensão de texto em contextos globais.</p>
+                <h4>Instruções para o Aluno:</h4>
+                <ul>
+                    <li>Leia cada pergunta com atenção.</li>
+                    <li>Escolha a alternativa correta (a, b ou c).</li>
+                    <li>Se não souber a resposta, escolha a alternativa "I don't know" (d).</li>
+                    <li>É preciso digitar o nome para que as respostas possam ser enviadas.</li>
+                </ul>
+            </div>
+            <form id="leveling-test-form-9th">
+                <div class="name-input-container">
+                    <input type="text" id="userName9th" placeholder="Digite seu nome">
+                </div>
+                <div class="question">
+                    <p>1. Leia a frase: "If you study hard, you will pass the exam." Essa frase é um exemplo de qual tipo de oração condicional?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q61" value="a" id="q61-a"> a) Zero conditional</label>
+                        <label><input type="radio" name="q61" value="b" id="q61-b"> b) First conditional</label>
+                        <label><input type="radio" name="q61" value="c" id="q61-c"> c) Second conditional</label>
+                        <label><input type="radio" name="q61" value="d" id="q61-d"> d) I don't know</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>2. A palavra however é um conector que indica:</p>
+                    <div class="options">
+                        <label><input type="radio" name="q62" value="a" id="q62-a"> a) Adição</label>
+                        <label><input type="radio" name="q62" value="b" id="q62-b"> b) Contraste</label>
+                        <label><input type="radio" name="q62" value="c" id="q62-c"> c) Causa e efeito</label>
+                        <label><input type="radio" name="q62" value="d" id="q62-d"> d) I don't know</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>3. Qual frase usa um verbo modal para expressar obrigação ou necessidade?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q63" value="a" id="q63-a"> a) You might be right.</label>
+                        <label><input type="radio" name="q63" value="b" id="q63-b"> b) You should take a break.</label>
+                        <label><input type="radio" name="q63" value="c" id="q63-c"> c) You must wear a helmet.</label>
+                        <label><input type="radio" name="q63" value="d" id="q63-d"> d) I don't know</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>4. Leia a frase: "The movie was so good _____ I cried." Qual conector se encaixa melhor?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q64" value="a" id="q64-a"> a) because</label>
+                        <label><input type="radio" name="q64" value="b" id="q64-b"> b) but</label>
+                        <label><input type="radio" name="q64" value="c" id="q64-c"> c) so</label>
+                        <label><input type="radio" name="q64" value="d" id="q64-d"> d) I don't know</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>5. Leia a frase: "He has a lot of money, _____ he is not happy." Qual conector se encaixa melhor?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q65" value="a" id="q65-a"> a) and</label>
+                        <label><input type="radio" name="q65" value="b" id="q65-b"> b) but</label>
+                        <label><input type="radio" name="q65" value="c" id="q65-c"> c) so</label>
+                        <label><input type="radio" name="q65" value="d" id="q65-d"> d) I don't know</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>6. Em um texto jornalístico, qual recurso é mais usado para persuadir o leitor?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q66" value="a" id="q66-a"> a) Uso de fatos e dados neutros.</label>
+                        <label><input type="radio" name="q66" value="b" id="q66-b"> b) Uso de opiniões e adjetivos de valor.</label>
+                        <label><input type="radio" name="q66" value="c" id="q66-c"> c) Uso de linguagem informal para ser mais acessível.</label>
+                        <label><input type="radio" name="q66" value="d" id="q66-d"> d) I don't know</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>7. Em uma campanha publicitária, qual a principal função de um slogan?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q67" value="a" id="q67-a"> a) Descrever o produto detalhadamente.</label>
+                        <label><input type="radio" name="q67" value="b" id="q67-b"> b) Criar uma frase curta e memorável para o produto.</label>
+                        <label><input type="radio" name="q67" value="c" id="q67-c"> c) Explicar os ingredientes do produto.</label>
+                        <label><input type="radio" name="q67" value="d" id="q67-d"> d) I don't know</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>8. Qual das seguintes é uma característica da linguagem "internetês" (internet slang)?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q68" value="a" id="q68-a"> a) Abreviações e uso de números para substituir letras.</label>
+                        <label><input type="radio" name="q68" value="b" id="q68-b"> b) Uso de vocabulário formal e complexo.</label>
+                        <label><input type="radio" name="q68" value="c" id="q68-c"> c) Respeito total às regras de gramática.</label>
+                        <label><input type="radio" name="q68" value="d" id="q68-d"> d) I don't know</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>9. Qual a tradução mais adequada para briefing no contexto de trabalho?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q69" value="a" id="q69-a"> a) Uma reunião para resumir informações importantes.</label>
+                        <label><input type="radio" name="q69" value="b" id="q69-b"> b) Uma pausa para o café.</label>
+                        <label><input type="radio" name="q69" value="c" id="q69-c"> c) Um evento social.</label>
+                        <label><input type="radio" name="q69" value="d" id="q69-d"> d) I don't know</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>10. A expressão "to get rid of" significa:</p>
+                    <div class="options">
+                        <label><input type="radio" name="q70" value="a" id="q70-a"> a) obter algo</label>
+                        <label><input type="radio" name="q70" value="b" id="q70-b"> b) livrar-se de algo</label>
+                        <label><input type="radio" name="q70" value="c" id="q70-c"> c) colocar algo no lugar</label>
+                        <label><input type="radio" name="q70" value="d" id="q70-d"> d) I don't know</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>11. Qual das opções a seguir é uma habilidade de leitura esperada para o 9º ano?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q71" value="a" id="q71-a"> a) Ler palavras novas com precisão.</label>
+                        <label><input type="radio" name="q71" value="b" id="q71-b"> b) Identificar a ideia central de um texto simples.</label>
+                        <label><input type="radio" name="q71" value="c" id="q71-c"> c) Distinguir fatos de opiniões em textos argumentativos.</label>
+                        <label><input type="radio" name="q71" value="d" id="q71-d"> d) I don't know</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>12. A frase "I have to study for the test" expressa:</p>
+                    <div class="options">
+                        <label><input type="radio" name="q72" value="a" id="q72-a"> a) uma recomendação.</label>
+                        <label><input type="radio" name="q72" value="b" id="q72-b"> b) uma obrigação.</label>
+                        <label><input type="radio" name="q72" value="c" id="q72-c"> c) um plano futuro.</label>
+                        <label><input type="radio" name="q72" value="d" id="q72-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>13. Qual das seguintes frases usa um pronome relativo de forma correta?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q73" value="a" id="q73-a"> a) This is the boy who car was stolen.</label>
+                        <label><input type="radio" name="q73" value="b" id="q73-b"> b) This is the car which belongs to the boy.</label>
+                        <label><input type="radio" name="q73" value="c" id="q73-c"> c) This is the car who belongs to the boy.</label>
+                        <label><input type="radio" name="q73" value="d" id="q73-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>14. O que a expressão "media coverage" significa em português?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q74" value="a" id="q74-a"> a) Cobertura da mídia</label>
+                        <label><input type="radio" name="q74" value="b" id="q74-b"> b) Mídia social</label>
+                        <label><input type="radio" name="q74" value="c" id="q74-c"> c) Mídia impressa</label>
+                        <label><input type="radio" name="q74" value="d" id="q74-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>15. Se a frase "If I were rich, I would travel the world" estivesse no "Second Conditional", o que ela expressaria?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q75" value="a" id="q75-a"> a) Uma situação real no presente.</label>
+                        <label><input type="radio" name="q75" value="b" id="q75-b"> b) Uma situação hipotética no presente ou futuro.</label>
+                        <label><input type="radio" name="q75" value="c" id="q75-c"> c) Uma situação provável no futuro.</label>
+                        <label><input type="radio" name="q75" value="d" id="q75-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>16. O que significa a abreviação LOL?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q76" value="a" id="q76-a"> a) Lost on a laptop</label>
+                        <label><input type="radio" name="q76" value="b" id="q76-b"> b) Laughing out loud</label>
+                        <label><input type="radio" name="q76" value="c" id="q76-c"> c) Lots of luck</label>
+                        <label><input type="radio" name="q76" value="d" id="q76-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>17. Qual das opções a seguir é uma habilidade esperada para a produção de texto no 9º ano?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q77" value="a" id="q77-a"> a) Escrever frases curtas sobre rotina.</label>
+                        <label><input type="radio" name="q77" value="b" id="q77-b"> b) Produzir textos que revelem um posicionamento crítico sobre temas de interesse coletivo.</label>
+                        <label><input type="radio" name="q77" value="c" id="q77-c"> c) Produzir textos sobre fatos do passado com a ajuda do professor.</label>
+                        <label><input type="radio" name="q77" value="d" id="q77-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>18. O que a BNCC espera que os alunos compreendam sobre a expansão da língua inglesa no mundo?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q78" value="a" id="q78-a"> a) Que a língua se expandiu apenas por ser fácil de aprender.</label>
+                        <label><input type="radio" name="q78" value="b" id="q78-b"> b) Que sua expansão está ligada a processos de colonização e poder.</label>
+                        <label><input type="radio" name="q78" value="c" id="q78-c"> c) Que a língua é falada apenas em países europeus.</label>
+                        <label><input type="radio" name="q78" value="d" id="q78-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>19. Qual dos verbos modais indica uma recomendação ou conselho?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q79" value="a" id="q79-a"> a) must</label>
+                        <label><input type="radio" name="q79" value="b" id="q79-b"> b) might</label>
+                        <label><input type="radio" name="q79" value="c" id="q79-c"> c) should</label>
+                        <label><input type="radio" name="q79" value="d" id="q79-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>20. A palavra environment em português é um cognato. Qual a tradução?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q80" value="a" id="q80-a"> a) entretenimento</label>
+                        <label><input type="radio" name="q80" value="b" id="q80-b"> b) ambiente</label>
+                        <label><input type="radio" name="q80" value="c" id="q80-c"> c) evento</label>
+                        <label><input type="radio" name="q80" value="d" id="q80-d"> d) I don't know</label>
+                    </div>
+                </div>
+                <button type="submit" class="submit-btn">Enviar Respostas</button>
+            </form>
+        </div>
+
+        <div id="testem1-grade-container" style="display: none;">
+            <div class="instructions">
+                <p>Com base nos documentos da Base Nacional Comum Curricular (BNCC), preparei um teste de 20 questões de múltipla escolha para alunos da 1ª série do Ensino Médio, com um nível de dificuldade e foco adequados para o início desta etapa.</p>
+                <p>O teste aborda as competências e habilidades mais avançadas do Ensino Médio, que incluem a análise crítica de textos, o uso de gramática mais complexa, a compreensão do inglês como uma língua global e a reflexão sobre a cultura digital. A BNCC do Ensino Médio não sugere uma progressão de habilidades ano a ano, mas sim competências que podem ser trabalhadas em qualquer série. Portanto, este teste foi elaborado para cobrir uma variedade desses tópicos em um nível introdutório ao Ensino Médio.</p>
+                <h4>Instruções para o Aluno:</h4>
+                <ul>
+                    <li>Leia cada pergunta com atenção.</li>
+                    <li>Escolha a alternativa correta (a, b ou c).</li>
+                    <li>Se não souber a resposta, escolha a alternativa "I don't know" (d).</li>
+                    <li>É preciso digitar o nome para que as respostas possam ser enviadas.</li>
+                </ul>
+            </div>
+            <form id="leveling-test-form-em1">
+                <div class="name-input-container">
+                    <input type="text" id="userNameem1" placeholder="Digite seu nome">
+                </div>
+                <div class="question">
+                    <p>1. Leia a manchete: "STUDY FINDS SOCIAL MEDIA MAY BE CAUSING LONELINESS". O que o verbo modal may sugere sobre a conclusão do estudo?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q81" value="a" id="q81-a"> a) Uma certeza.</label>
+                        <label><input type="radio" name="q81" value="b" id="q81-b"> b) Uma obrigação.</label>
+                        <label><input type="radio" name="q81" value="c" id="q81-c"> c) Uma possibilidade.</label>
+                        <label><input type="radio" name="q81" value="d" id="q81-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>2. Qual frase no Passado Perfeito (Present Perfect) está gramaticalmente correta?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q82" value="a" id="q82-a"> a) I have saw that movie last year.</label>
+                        <label><input type="radio" name="q82" value="b" id="q82-b"> b) I has seen that movie.</label>
+                        <label><input type="radio" name="q82" value="c" id="q82-c"> c) I have seen that movie.</label>
+                        <label><input type="radio" name="q82" value="d" id="q82-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>3. Qual frase usa a voz passiva corretamente?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q83" value="a" id="q83-a"> a) The book was written by a famous author.</label>
+                        <label><input type="radio" name="q83" value="b" id="q83-b"> b) The book wrote a famous author.</label>
+                        <label><input type="radio" name="q83" value="c" id="q83-c"> c) The book is writing a famous author.</label>
+                        <label><input type="radio" name="q83" value="d" id="q83-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>4. Complete a frase: "He has so _____ money that he doesn't know what to do with it."</p>
+                    <div class="options">
+                        <label><input type="radio" name="q84" value="a" id="q84-a"> a) many</label>
+                        <label><input type="radio" name="q84" value="b" id="q84-b"> b) much</label>
+                        <label><input type="radio" name="q84" value="c" id="q84-c"> c) a lot</label>
+                        <label><input type="radio" name="q84" value="d" id="q84-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>5. Leia a frase: "It _____ be a ghost, but I don't really believe in them." Qual verbo modal expressa a ideia de especulação?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q85" value="a" id="q85-a"> a) must</label>
+                        <label><input type="radio" name="q85" value="b" id="q85-b"> b) can</label>
+                        <label><input type="radio" name="q85" value="c" id="q85-c"> c) might</label>
+                        <label><input type="radio" name="q85" value="d" id="q85-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>6. Qual das opções a seguir é um conector que indica causa?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q86" value="a" id="q86-a"> a) however</label>
+                        <label><input type="radio" name="q86" value="b" id="q86-b"> b) so</label>
+                        <label><input type="radio" name="q86" value="c" id="q86-c"> c) because</label>
+                        <label><input type="radio" name="q86" value="d" id="q86-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>7. Em um texto crítico sobre um filme, qual é a principal função da sinopse?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q87" value="a" id="q87-a"> a) Detalhar as falhas de roteiro do filme.</label>
+                        <label><input type="radio" name="q87" value="b" id="q87-b"> b) Apresentar um resumo conciso da trama.</label>
+                        <label><input type="radio" name="q87" value="c" id="q87-c"> c) Comparar o filme com outras obras do mesmo gênero.</label>
+                        <label><input type="radio" name="q87" value="d" id="q87-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>8. Leia a frase: "The students, _____ were very tired, went home early." Qual pronome relativo se encaixa melhor?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q88" value="a" id="q88-a"> a) that</label>
+                        <label><input type="radio" name="q88" value="b" id="q88-b"> b) who</label>
+                        <label><input type="radio" name="q88" value="c" id="q88-c"> c) whose</label>
+                        <label><input type="radio" name="q88" value="d" id="q88-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>9. Um texto que usa o prefixo re- frequentemente, como em rebuild, rethink, redesign, sugere a ideia de:</p>
+                    <div class="options">
+                        <label><input type="radio" name="q89" value="a" id="q89-a"> a) Repetição de uma ação.</label>
+                        <label><input type="radio" name="q89" value="b" id="q89-b"> b) Negação de uma ação.</label>
+                        <label><input type="radio" name="q89" value="c" id="q89-c"> c) Prioridade de uma ação.</label>
+                        <label><input type="radio" name="q89" value="d" id="q89-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>10. A palavra bilingual refere-se a uma pessoa que:</p>
+                    <div class="options">
+                        <label><input type="radio" name="q90" value="a" id="q90-a"> a) Consegue se comunicar em apenas uma língua.</label>
+                        <label><input type="radio" name="q90" value="b" id="q90-b"> b) Consegue se comunicar em duas línguas.</label>
+                        <label><input type="radio" name="q90" value="c" id="q90-c"> c) Consegue se comunicar em várias línguas.</label>
+                        <label><input type="radio" name="q90" value="d" id="q90-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>11. Qual dos phrasal verbs significa "descobrir" ou "encontrar" algo?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q91" value="a" id="q91-a"> a) put off</label>
+                        <label><input type="radio" name="q91" value="b" id="q91-b"> b) look up</label>
+                        <label><input type="radio" name="q91" value="c" id="q91-c"> c) turn down</label>
+                        <label><input type="radio" name="q91" value="d" id="q91-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>12. Em um debate, a expressão in my opinion é um recurso linguístico para:</p>
+                    <div class="options">
+                        <label><input type="radio" name="q92" value="a" id="q92-a"> a) Apresentar um fato.</label>
+                        <label><input type="radio" name="q92" value="b" id="q92-b"> b) Defender um argumento de forma impessoal.e</label>
+                        <label><input type="radio" name="q92" value="c" id="q92-c"> c) Expressar um ponto de vista pessoal.</label>
+                        <label><input type="radio" name="q92" value="d" id="q92-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>13. Analisando a frase "Fake news is a problem of the digital era", qual das opções a seguir reflete a competência de analisar o impacto das tecnologias digitais?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q93" value="a" id="q93-a"> a) A frase está gramaticalmente correta.</label>
+                        <label><input type="radio" name="q93" value="b" id="q93-b"> b) A frase identifica uma consequência negativa da tecnologia.</label>
+                        <label><input type="radio" name="q93" value="c" id="q93-c"> c) A frase usa palavras simples para uma ideia complexa.</label>
+                        <label><input type="radio" name="q93" value="d" id="q93-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>14. O que a expressão idiom significa em português?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q94" value="a" id="q94-a"> a) Uma palavra cognata.</label>
+                        <label><input type="radio" name="q94" value="b" id="q94-b"> b) Uma expressão cujo significado não pode ser deduzido das palavras individualmente.</label>
+                        <label><input type="radio" name="q94" value="c" id="q94-c"> c) Um tipo de texto formal.</label>
+                        <label><input type="radio" name="q94" value="d" id="q94-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>15. Qual palavra completa a frase: "The book _____ I'm reading is very exciting."</p>
+                    <div class="options">
+                        <label><input type="radio" name="q95" value="a" id="q95-a"> a) who</label>
+                        <label><input type="radio" name="q95" value="b" id="q95-b"> b) which</label>
+                        <label><input type="radio" name="q95" value="c" id="q95-c"> c) where</label>
+                        <label><input type="radio" name="q95" value="d" id="q95-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>16. A habilidade de "analisar visões de mundo, conflitos de interesse, preconceitos e ideologias presentes nos discursos veiculados nas diferentes mídias"  é uma competência esperada para o Ensino Médio. Qual das seguintes opções melhor exemplifica essa habilidade?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q96" value="a" id="q96-a"> a) Identificar o tema de uma notícia.</label>
+                        <label><input type="radio" name="q96" value="b" id="q96-b"> b) Comparar diferentes reportagens sobre o mesmo evento para entender os vieses.</label>
+                        <label><input type="radio" name="q96" value="c" id="q96-c"> c) Traduzir uma notícia do inglês para o português.</label>
+                        <label><input type="radio" name="q96" value="d" id="q96-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>17. Qual das seguintes frases usa um verbo modal para dar um conselho?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q97" value="a" id="q97-a"> a) You should drink water every day.</label>
+                        <label><input type="radio" name="q97" value="b" id="q97-b"> b) You must drink water every day.</label>
+                        <label><input type="radio" name="q97" value="c" id="q97-c"> c) You can drink water every day.</label>
+                        <label><input type="radio" name="q97" value="d" id="q97-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>18. O que a expressão cultural heritage significa em português?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q98" value="a" id="q98-a"> a) História da cultura.</label>
+                        <label><input type="radio" name="q98" value="b" id="q98-b"> b) Diversidade cultural.</label>
+                        <label><input type="radio" name="q98" value="c" id="q98-c"> c) Patrimônio cultural.</label>
+                        <label><input type="radio" name="q98" value="d" id="q98-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>19. Qual a tradução correta para "I have been to London"?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q99" value="a" id="q99-a"> a) Eu estive em Londres.</label>
+                        <label><input type="radio" name="q99" value="b" id="q99-b"> b) Eu fui para Londres e voltei.</label>
+                        <label><input type="radio" name="q99" value="c" id="q99-c"> c) Eu fui para Londres e ainda estou lá.</label>
+                        <label><input type="radio" name="q99" value="d" id="q99-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>20. A expressão "to make a decision" se refere a qual habilidade?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q100" value="a" id="q100-a"> a) Fazer algo.</label>
+                        <label><input type="radio" name="q100" value="b" id="q100-b"> b) Fazer uma pergunta.</label>
+                        <label><input type="radio" name="q100" value="c" id="q100-c"> c) Tomar uma decisão.</label>
+                        <label><input type="radio" name="q100" value="d" id="q100-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <button type="submit" class="submit-btn">Enviar Respostas</button>
+            </form>
+        </div>
+
+        <div id="testem2-grade-container" style="display: none;">
+            <div class="instructions">
+                <p>Com base nos documentos da Base Nacional Comum Curricular (BNCC), preparei um teste de 20 questões de múltipla escolha para alunos da 2ª série do Ensino Médio, com um nível de dificuldade e foco adequados para esta etapa.</p>
+                <p>A BNCC para o Ensino Médio não sugere uma progressão de habilidades ano a ano, mas sim um conjunto de competências que podem ser trabalhadas ao longo de toda a etapa. Este teste foi elaborado para cobrir tópicos mais complexos do que os do 1º ano, incluindo gramática avançada, análise crítica de textos e reflexão sobre a linguagem em contextos globais e digitais, conforme as competências da área de Linguagens e suas Tecnologias.</p>
+                <h4>Instruções para o Aluno:</h4>
+                <ul>
+                    <li>Leia cada pergunta com atenção.</li>
+                    <li>Escolha a alternativa correta (a, b ou c).</li>
+                    <li>Se não souber a resposta, escolha a alternativa "I don't know" (d).</li>
+                    <li>É preciso digitar o nome para que as respostas possam ser enviadas.</li>
+                </ul>
+            </div>
+            <form id="leveling-test-form-em2">
+                <div class="name-input-container">
+                    <input type="text" id="userNameem2" placeholder="Digite seu nome">
+                </div>
+                <div class="question">
+                    <p>1. Complete a frase com a forma correta do Third Conditional: "If I had known about the concert, I _____ gone."</p>
+                    <div class="options">
+                        <label><input type="radio" name="q101" value="a" id="q101-a"> a) would have</label>
+                        <label><input type="radio" name="q101" value="b" id="q101-b"> b) would have been</label>
+                        <label><input type="radio" name="q101" value="c" id="q101-c"> c) would have had</label>
+                        <label><input type="radio" name="q101" value="d" id="q101-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>2. What does the modal verb phrase must have been express in the sentence "She didn't answer the phone. She must have been sleeping."?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q102" value="a" id="q102-a"> a) A certainty about the past.</label>
+                        <label><input type="radio" name="q102" value="b" id="q102-b"> b) A strong deduction about the past.</label>
+                        <label><input type="radio" name="q102" value="c" id="q102-c"> c) A possibility in the present.</label>
+                        <label><input type="radio" name="q102" value="d" id="q102-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>3. Qual é a forma correta da voz passiva para a frase "The company will launch a new product"?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q103" value="a" id="q103-a"> a) A new product will be launched by the company.</label>
+                        <label><input type="radio" name="q103" value="b" id="q103-b"> b) A new product will launch by the company.</label>
+                        <label><input type="radio" name="q103" value="c" id="q103-c"> c) The company will be launched a new product.</label>
+                        <label><input type="radio" name="q103" value="d" id="q103-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>4. Qual a forma correta de reescrever a frase no Reported Speech: "He said, 'I am a student.'"</p>
+                    <div class="options">
+                        <label><input type="radio" name="q104" value="a" id="q104-a"> a) He said that he was a student.</label>
+                        <label><input type="radio" name="q104" value="b" id="q104-b"> b) He said that I am a student.</label>
+                        <label><input type="radio" name="q104" value="c" id="q104-c"> c) He said that he is a student.</label>
+                        <label><input type="radio" name="q104" value="d" id="q104-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>5. Leia a frase: "The government should have taken action sooner." Qual verbo modal expressa a ideia de um arrependimento ou crítica a uma ação no passado?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q105" value="a" id="q105-a"> a) should have</label>
+                        <label><input type="radio" name="q105" value="b" id="q105-b"> b) could have</label>
+                        <label><input type="radio" name="q105" value="c" id="q105-c"> c) must have</label>
+                        <label><input type="radio" name="q105" value="d" id="q105-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>6. Em um artigo de opinião que defende a importância da reciclagem, qual das opções a seguir representa um argumento de autoridade?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q106" value="a" id="q106-a"> a) "Eu acho que reciclar é bom para o meio ambiente."</label>
+                        <label><input type="radio" name="q106" value="b" id="q106-b"> b) "A reciclagem salvou 100 árvores no ano passado, segundo uma ONG ambiental."</label>
+                        <label><input type="radio" name="q106" value="c" id="q106-c"> c) "Reciclar me faz sentir uma pessoa melhor."</label>
+                        <label><input type="radio" name="q106" value="d" id="q106-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>7. A habilidade de "analisar visões de mundo, conflitos de interesse, preconceitos e ideologias presentes nos discursos veiculados nas diferentes mídias"  é uma competência esperada para o Ensino Médio. Qual das seguintes opções melhor exemplifica essa habilidade?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q107" value="a" id="q107-a"> a) Identificar o tema principal de uma notícia.</label>
+                        <label><input type="radio" name="q107" value="b" id="q107-b"> b) Comparar diferentes reportagens sobre o mesmo evento para identificar vieses editoriais.</label>
+                        <label><input type="radio" name="q107" value="c" id="q107-c"> c) Traduzir uma notícia do inglês para o português.</label>
+                        <label><input type="radio" name="q107" value="d" id="q107-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>8. Leia a frase: "He has a great talent for acting, _____ he has never been in a movie." Qual conector se encaixa melhor para criar um contraste?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q108" value="a" id="q108-a"> a) therefore</label>
+                        <label><input type="radio" name="q108" value="b" id="q108-b"> b) although</label>
+                        <label><input type="radio" name="q108" value="c" id="q108-c"> c) consequently</label>
+                        <label><input type="radio" name="q108" value="d" id="q108-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>9. A palavra overpopulation é um termo composto. O que o prefixo over- indica?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q109" value="a" id="q109-a"> a) Uma quantidade insuficiente.</label>
+                        <label><input type="radio" name="q109" value="b" id="q109-b"> b) Uma quantidade excessiva.</label>
+                        <label><input type="radio" name="q109" value="c" id="q109-c"> c) Um tipo de população.</label>
+                        <label><input type="radio" name="q109" value="d" id="q109-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>10. Qual dos seguintes phrasal verbs significa "desistir de" algo?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q110" value="a" id="q110-a"> a) give up</label>
+                        <label><input type="radio" name="q110" value="b" id="q110-b"> b) take off</label>
+                        <label><input type="radio" name="q110" value="c" id="q110-c"> c) put on</label>
+                        <label><input type="radio" name="q110" value="d" id="q110-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>11. A habilidade de "avaliar o impacto das tecnologias digitais na formação do sujeito e em suas práticas sociais"  está relacionada a qual dos seguintes tópicos?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q111" value="a" id="q111-a"> a) A gramática de um idioma de programação.</label>
+                        <label><input type="radio" name="q111" value="b" id="q111-b"> b) A influência das redes sociais na auto-estima.</label>
+                        <label><input type="radio" name="q111" value="c" id="q111-c"> c) A história dos computadores.</label>
+                        <label><input type="radio" name="q111" value="d" id="q111-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>12. Qual das seguintes frases usa um pronome relativo de forma correta em uma oração não restritiva?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q112" value="a" id="q112-a"> a) The movie, _____ was released last year, won many awards.</label>
+                        <label><input type="radio" name="q112" value="b" id="q112-b"> b) The movie _____ was released last year won many awards.</label>
+                        <label><input type="radio" name="q112" value="c" id="q112-c"> c) The movie _____ won many awards was released last year.</label>
+                        <label><input type="radio" name="q112" value="d" id="q112-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>13. Qual conector seria mais adequado para iniciar a conclusão de um texto argumentativo?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q113" value="a" id="q113-a"> a) In addition,</label>
+                        <label><input type="radio" name="q113" value="b" id="q113-b"> b) In conclusion,</label>
+                        <label><input type="radio" name="q113" value="c" id="q113-c"> c) For example,</label>
+                        <label><input type="radio" name="q113" value="d" id="q113-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>14. O que a frase We need to talk about the elephant in the room significa?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q114" value="a" id="q114-a"> a) Precisamos falar sobre um elefante na sala.</label>
+                        <label><input type="radio" name="q114" value="b" id="q114-b"> b) Precisamos falar sobre um problema óbvio que todos evitam.</label>
+                        <label><input type="radio" name="q114" value="c" id="q114-c"> c) Precisamos falar sobre a decoração da sala.</label>
+                        <label><input type="radio" name="q114" value="d" id="q114-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>15. A compreensão do inglês como "língua de uso mundial"  implica que:</p>
+                    <div class="options">
+                        <label><input type="radio" name="q115" value="a" id="q115-a"> a) O inglês é superior a outras línguas.</label>
+                        <label><input type="radio" name="q115" value="b" id="q115-b"> b) Apenas nativos de países como EUA e Reino Unido falam o inglês correto.</label>
+                        <label><input type="radio" name="q115" value="c" id="q115-c"> c) Há multiplicidade e variedade de usos, usuários e funções da língua.</label>
+                        <label><input type="radio" name="q115" value="d" id="q115-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>16. A expressão global citizen refere-se a:</p>
+                    <div class="options">
+                        <label><input type="radio" name="q116" value="a" id="q116-a"> a) Alguém que viaja muito.</label>
+                        <label><input type="radio" name="q116" value="b" id="q116-b"> b) Um indivíduo que se vê como parte de uma comunidade global.</label>
+                        <label><input type="radio" name="q116" value="c" id="q116-c"> c) Um político internacional.</label>
+                        <label><input type="radio" name="q116" value="d" id="q116-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>17. Qual das opções a seguir exemplifica o uso da voz passiva no Passado Simples?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q117" value="a" id="q117-a"> a) The letter was written by her.</label>
+                        <label><input type="radio" name="q117" value="b" id="q117-b"> b) She wrote the letter.</label>
+                        <label><input type="radio" name="q117" value="c" id="q117-c"> c) The letter is written by her.</label>
+                        <label><input type="radio" name="q117" value="d" id="q117-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>18. Qual dos seguintes vocabulários é mais provável de ser encontrado em um contexto acadêmico?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q118" value="a" id="q118-a"> a) "wanna", "gonna", "lol"</label>
+                        <label><input type="radio" name="q118" value="b" id="q118-b"> b) "thesis", "hypothesis", "analysis"</label>
+                        <label><input type="radio" name="q118" value="c" id="q118-c"> c) "chill", "cool", "hang out"</label>
+                        <label><input type="radio" name="q118" value="d" id="q118-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>19. Qual a tradução correta para "I have been to London"?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q119" value="a" id="q119-a"> a) Eu estive em Londres.</label>
+                        <label><input type="radio" name="q119" value="b" id="q119-b"> b) Eu fui para Londres e voltei.</label>
+                        <label><input type="radio" name="q119" value="c" id="q119-c"> c) Eu fui para Londres e ainda estou lá.</label>
+                        <label><input type="radio" name="q119" value="d" id="q119-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>20. A frase "I wish I had traveled more" expressa:</p>
+                    <div class="options">
+                        <label><input type="radio" name="q120" value="a" id="q120-a"> a) Um desejo sobre o futuro.</label>
+                        <label><input type="radio" name="q120" value="b" id="q120-b"> b) Um arrependimento sobre o passado.</label>
+                        <label><input type="radio" name="q120" value="c" id="q120-c"> c) Uma certeza sobre o presente.</label>
+                        <label><input type="radio" name="q120" value="d" id="q120-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <button type="submit" class="submit-btn">Enviar Respostas</button>
+            </form>
+        </div>
+
+        <div id="testem3-grade-container" style="display: none;">
+            <div class="instructions">
+                <p>Com base nos documentos da Base Nacional Comum Curricular (BNCC), preparei um teste de 20 questões de múltipla escolha para alunos da 3ª série do Ensino Médio, com um nível de dificuldade e foco adequados para esta etapa final.</p>
+                <p>A BNCC para o Ensino Médio não sugere uma progressão de habilidades ano a ano, mas sim um conjunto de competências que devem ser trabalhadas ao longo de toda a etapa para garantir uma formação integral dos estudantes. Este teste foi elaborado para cobrir tópicos mais avançados, que exigem análise crítica de textos, compreensão do inglês em contextos globais e digitais, e uso de estruturas gramaticais complexas, conforme as competências da área de Linguagens e suas Tecnologias.</p>
+                <h4>Instruções para o Aluno:</h4>
+                <ul>
+                    <li>Leia cada pergunta com atenção.</li>
+                    <li>Escolha a alternativa correta (a, b ou c).</li>
+                    <li>Se não souber a resposta, escolha a alternativa "I don't know" (d).</li>
+                    <li>É preciso digitar o nome para que as respostas possam ser enviadas.</li>
+                </ul>
+            </div>
+            <form id="leveling-test-form-em3">
+                <div class="name-input-container">
+                    <input type="text" id="userNameem3" placeholder="Digite seu nome">
+                </div>
+                <div class="question">
+                    <p>1. Qual frase usa um phrasal verb corretamente?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q121" value="a" id="q121-a"> a) I want to put off the meeting.</label>
+                        <label><input type="radio" name="q121" value="b" id="q121-b"> b) I want to put the meeting off.</label>
+                        <label><input type="radio" name="q121" value="c" id="q121-c"> c) I want to put off the meeting away.</label>
+                        <label><input type="radio" name="q121" value="d" id="q121-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>2. Leia a frase: "The journalist reported that the company had been violating labor laws for years." Qual tempo verbal foi usado na oração principal?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q122" value="a" id="q122-a"> a) Present Perfect</label>
+                        <label><input type="radio" name="q122" value="b" id="q122-b"> b) Past Perfect</label>
+                        <label><input type="radio" name="q122" value="c" id="q122-c"> c) Past Simple</label>
+                        <label><input type="radio" name="q122" value="d" id="q122-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>3. Qual dos conectores a seguir é mais adequado para indicar um contraste inesperado?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q123" value="a" id="q123-a"> a) In fact</label>
+                        <label><input type="radio" name="q123" value="b" id="q123-b"> b) Therefore</label>
+                        <label><input type="radio" name="q123" value="c" id="q123-c"> c) Although</label>
+                        <label><input type="radio" name="q123" value="d" id="q123-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>4. A frase "If I had known about the problem, I would have helped you" é um exemplo de:</p>
+                    <div class="options">
+                        <label><input type="radio" name="q124" value="a" id="q124-a"> a) Second Conditional, que expressa uma situação hipotética no presente.</label>
+                        <label><input type="radio" name="q124" value="b" id="q124-b"> b) Third Conditional, que expressa um arrependimento no passado.</label>
+                        <label><input type="radio" name="q124" value="c" id="q124-c"> c) Mixed Conditional, que expressa uma situação hipotética e sua consequência.</label>
+                        <label><input type="radio" name="q124" value="d" id="q124-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>5. Qual a forma correta do verbo modal para expressar uma dedução forte sobre uma ação passada?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q125" value="a" id="q125-a"> a) He must have forgotten his keys.</label>
+                        <label><input type="radio" name="q125" value="b" id="q125-b"> b) He may have forgotten his keys.</label>
+                        <label><input type="radio" name="q125" value="c" id="q125-c"> c) He can't have forgotten his keys.</label>
+                        <label><input type="radio" name="q125" value="d" id="q125-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>6. Em um artigo de opinião que defende o consumo consciente, a frase "Some people claim that individual efforts don't matter, but studies show a significant collective impact" representa qual estratégia argumentativa?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q126" value="a" id="q126-a"> a) Argumento de autoridade.</label>
+                        <label><input type="radio" name="q126" value="b" id="q126-b"> b) Refutação de um contra-argumento.</label>
+                        <label><input type="radio" name="q126" value="c" id="q126-c"> c) Argumento por exemplificação.</label>
+                        <label><input type="radio" name="q126" value="d" id="q126-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>7. A habilidade de "analisar visões de mundo, conflitos de interesse, preconceitos e ideologias presentes nos discursos veiculados nas diferentes mídias"  pode ser aplicada na análise de qual dos seguintes textos?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q127" value="a" id="q127-a"> a) Um manual de instruções de um aparelho eletrônico.</label>
+                        <label><input type="radio" name="q127" value="b" id="q127-b"> b) Um artigo de jornal que apresenta um viés político em sua reportagem.</label>
+                        <label><input type="radio" name="q127" value="c" id="q127-c"> c) Uma lista de compras.</label>
+                        <label><input type="radio" name="q127" value="d" id="q127-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>8. Qual das palavras a seguir é um falso cognato com o português?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q128" value="a" id="q128-a"> a) Delicious</label>
+                        <label><input type="radio" name="q128" value="b" id="q128-b"> b) Library</label>
+                        <label><input type="radio" name="q128" value="c" id="q128-c"> c) Important</label>
+                        <label><input type="radio" name="q128" value="d" id="q128-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>9. Leia o trecho: "The company's new campaign, which focuses on sustainability, has been widely praised." O que o pronome which refere na oração não-restritiva?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q129" value="a" id="q129-a"> a) A campanha publicitária.</label>
+                        <label><input type="radio" name="q129" value="b" id="q129-b"> b) A sustentabilidade.</label>
+                        <label><input type="radio" name="q129" value="c" id="q129-c"> c) A empresa.</label>
+                        <label><input type="radio" name="q129" value="d" id="q129-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>10. A expressão "to read between the lines" significa:</p>
+                    <div class="options">
+                        <label><input type="radio" name="q130" value="a" id="q130-a"> a) Ler rapidamente um texto.</label>
+                        <label><input type="radio" name="q130" value="b" id="q130-b"> b) Entender o que é implícito em um texto.</label>
+                        <label><input type="radio" name="q130" value="c" id="q130-c"> c) Fazer um resumo de um texto.</label>
+                        <label><input type="radio" name="q130" value="d" id="q130-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>11. A frase "I have a lot of work to do. I have to prioritize my tasks" expressa qual ideia?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q131" value="a" id="q131-a"> a) Um plano futuro.</label>
+                        <label><input type="radio" name="q131" value="b" id="q131-b"> b) Uma obrigação.</label>
+                        <label><input type="radio" name="q131" value="c" id="q131-c"> c) Uma preferência.</label>
+                        <label><input type="radio" name="q131" value="d" id="q131-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>12. A palavra ambiguous em português significa:</p>
+                    <div class="options">
+                        <label><input type="radio" name="q132" value="a" id="q132-a"> a) Ambicioso</label>
+                        <label><input type="radio" name="q132" value="b" id="q132-b"> b) Ambíguo</label>
+                        <label><input type="radio" name="q132" value="c" id="q132-c"> c) Amigável</label>
+                        <label><input type="radio" name="q132" value="d" id="q132-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>13. Qual dos seguintes recursos pode ser usado para dar um tom mais impessoal a um texto de divulgação científica?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q133" value="a" id="q133-a"> a) Uso da primeira pessoa (I, we).</label>
+                        <label><input type="radio" name="q133" value="b" id="q133-b"> b) Uso de gírias e expressões informais.</label>
+                        <label><input type="radio" name="q133" value="c" id="q133-c"> c) Uso da voz passiva e da terceira pessoa.</label>
+                        <label><input type="radio" name="q133" value="d" id="q133-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>14. Leia a frase: "The _____ of smartphones on social behavior is a complex topic." Qual palavra se encaixa melhor no espaço?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q134" value="a" id="q134-a"> a) influence</label>
+                        <label><input type="radio" name="q134" value="b" id="q134-b"> b) influential</label>
+                        <label><input type="radio" name="q134" value="c" id="q134-c"> c) influenced</label>
+                        <label><input type="radio" name="q134" value="d" id="q134-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>15. Qual dos seguintes vocabulários é mais provável de ser encontrado em um contexto acadêmico?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q135" value="a" id="q135-a"> a) "wanna", "gonna", "lol"</label>
+                        <label><input type="radio" name="q135" value="b" id="q135-b"> b) "thesis", "hypothesis", "analysis"</label>
+                        <label><input type="radio" name="q135" value="c" id="q135-c"> c) "chill", "cool", "hang out"</label>
+                        <label><input type="radio" name="q135" value="d" id="q135-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>16. A habilidade de "avaliar o impacto das tecnologias digitais [...] para fazer uso crítico dessa mídia"  é mais bem aplicada ao:</p>
+                    <div class="options">
+                        <label><input type="radio" name="q136" value="a" id="q136-a"> a) Aprender a usar um novo aplicativo de edição de fotos.</label>
+                        <label><input type="radio" name="q136" value="b" id="q136-b"> b) Compartilhar uma notícia viral sem checar a fonte.</label>
+                        <label><input type="radio" name="q136" value="c" id="q136-c"> c) Analisar a origem e o propósito de um meme político antes de compartilhá-lo.</label>
+                        <label><input type="radio" name="q136" value="d" id="q136-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>17. De acordo com a BNCC, o entendimento do inglês como língua franca significa que:</p>
+                    <div class="options">
+                        <label><input type="radio" name="q137" value="a" id="q137-a"> a) Ele deve ser ensinado apenas por falantes nativos.</label>
+                        <label><input type="radio" name="q137" value="b" id="q137-b"> b) O inglês tem um único padrão de pronúncia e gramática.</label>
+                        <label><input type="radio" name="q137" value="c" id="q137-c"> c) Ele é uma língua de uso mundial com variedade de usos e usuários.</label>
+                        <label><input type="radio" name="q137" value="d" id="q137-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>18. A expressão global warming é um termo comum em discussões globais. O que significa?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q138" value="a" id="q138-a"> a) Aquecimento global</label>
+                        <label><input type="radio" name="q138" value="b" id="q138-b"> b) Guerra global</label>
+                        <label><input type="radio" name="q138" value="c" id="q138-c"> c) Clima global</label>
+                        <label><input type="radio" name="q138" value="d" id="q138-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>19. Qual das seguintes opções é uma característica do Present Perfect?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q139" value="a" id="q139-a"> a) Descreve uma ação que aconteceu e terminou em um tempo específico no passado.</label>
+                        <label><input type="radio" name="q139" value="b" id="q139-b"> b) Descreve uma ação que começou no passado e tem relação com o presente.</label>
+                        <label><input type="radio" name="q139" value="c" id="q139-c"> c) Descreve uma ação que acontecerá no futuro.</label>
+                        <label><input type="radio" name="q139" value="d" id="q139-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>20. A expressão "to run a company" é um exemplo de: </p>
+                    <div class="options">
+                        <label><input type="radio" name="q140" value="a" id="q140-a"> a) Uma corrida.</label>
+                        <label><input type="radio" name="q140" value="b" id="q140-b"> b) Uma empresa em falência.</label>
+                        <label><input type="radio" name="q140" value="c" id="q140-c"> c) Gerenciar uma empresa.</label>
+                        <label><input type="radio" name="q140" value="d" id="q140-d"> d) I don't know.</label>
+                    </div>
+                </div>
+                <button type="submit" class="submit-btn">Enviar Respostas</button>
+            </form>
+        </div>
+
+        <div id="result-box" class="result-box">
+        </div>
+    </div>
+
+    <footer class="footer">
+        © Direitos Reservados ao Prof. Johnatan Willow || 2025
+    </footer>
+
+</body>
+</html>
