@@ -194,39 +194,48 @@
     }
     
     /* Regras específicas para telas pequenas (smartphones) */
-    @media (max-width: 600px) {
-        .container {
-            padding: 15px;
-            margin: 10px auto;
-            max-width: 95%;
-        }
-        h1 {
-            font-size: 24px;
-        }
-        h2 {
-            font-size: 18px;
-        }
-        .instructions {
-            padding: 10px;
-        }
-        .question p {
-            font-size: 16px;
-            font-weight: bold;
-        }
-        .options label {
-            font-size: 14px;
-            line-height: 1.6;
-        }
-        .name-input-container input {
-            width: 95%;
-            font-size: 14px;
-        }
-        .test-selection-btn {
-            width: 90%;
-            font-size: 18px;
-            padding: 15px;
-        }
+@media (max-width: 600px) {
+    .container {
+        padding: 15px;
+        margin: 10px auto;
+        max-width: 95%;
     }
+    h1 {
+        font-size: 28px; /* Aumentado para maior destaque */
+    }
+    h2 {
+        font-size: 20px; /* Aumentado para maior destaque */
+    }
+    .instructions {
+        padding: 15px; /* Aumentado para melhor espaçamento */
+    }
+    .question {
+        margin-bottom: 25px; /* Aumentado o espaçamento entre as perguntas */
+        padding-bottom: 25px;
+    }
+    .question p {
+        font-size: 18px; /* Aumentado o tamanho da fonte da pergunta */
+        font-weight: bold;
+    }
+    .options label {
+        font-size: 16px; /* Aumentado o tamanho da fonte das opções */
+        line-height: 1.8; /* Aumentado a altura da linha para mais espaço */
+        margin-bottom: 12px; /* Adicionado um espaço maior entre as opções */
+    }
+    .name-input-container input {
+        width: 95%;
+        font-size: 16px; /* Aumentado o tamanho da fonte do input */
+    }
+    .test-selection-btn {
+        width: 95%; /* Ajustado para quase a largura total */
+        font-size: 22px; /* Aumentado significativamente para melhor visualização */
+        padding: 20px; /* Aumentado o preenchimento para botões maiores */
+    }
+    .submit-btn, .back-to-menu-btn {
+        font-size: 18px; /* Aumentado para melhor visualização */
+        padding: 15px; /* Aumentado para botões maiores */
+    }
+}
 </style>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
