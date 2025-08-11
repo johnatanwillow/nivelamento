@@ -5,218 +5,225 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Teste de Nível de Inglês - Prof. Johnatan Willow</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            color: #333;
-            line-height: 1.6;
-            margin: 0;
-            padding-bottom: 60px;
-        }
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        color: #333;
+        line-height: 1.6;
+        margin: 0;
+        padding-bottom: 60px;
+    }
+    .container {
+        max-width: 800px;
+        margin: 20px auto;
+        background: #fff;
+        padding: 20px 40px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h1, h2 {
+        text-align: center;
+        color: #444;
+    }
+    .name-input-container {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    .name-input-container input {
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+        width: 80%;
+        max-width: 300px;
+    }
+    .instructions {
+        background-color: #e9ecef;
+        padding: 15px;
+        border-left: 5px solid #007bff;
+        margin-bottom: 20px;
+    }
+    .progress-bar-container {
+        width: 100%;
+        background-color: #ddd;
+        border-radius: 5px;
+        margin-bottom: 20px;
+    }
+    .progress-bar {
+        color: white;
+        height: 20px;
+        border-radius: 5px;
+        width: 0%;
+        text-align: center;
+        line-height: 20px;
+        font-size: 14px;
+        transition: width 0.5s ease-in-out, background-color 0.5s ease-in-out;
+    }
+    .progress-bar.red { background-color: #dc3545; }
+    .progress-bar.yellow { background-color: #ffc107; }
+    .progress-bar.green { background-color: #28a745; }
+
+    .question {
+        margin-bottom: 20px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid #ccc;
+    }
+    /* Aumenta o tamanho da fonte para a pergunta e as opções do questionário */
+    .question p, .options label {
+        font-size: 18px; /* Aumentado de 16px para 18px para melhor legibilidade */
+        font-weight: bold;
+        line-height: 1.5; /* Adicionado para melhor espaçamento entre as linhas */
+    }
+    .options label {
+        display: block;
+        margin-bottom: 8px;
+        cursor: pointer;
+    }
+    .options input {
+        margin-right: 10px;
+    }
+    .submit-btn, .back-to-menu-btn {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        color: #fff;
+        background-color: #8a2be2;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 20px;
+    }
+    .submit-btn:hover, .back-to-menu-btn:hover {
+        background-color: #6c1aaf;
+    }
+
+    .test-selection-container {
+        text-align: center;
+        margin-top: 50px;
+        width: 100%; /* Garante que o container de seleção ocupe toda a largura */
+    }
+    .test-selection-block {
+        margin-bottom: 30px;
+    }
+    .test-selection-block h3 {
+        border-bottom: 2px solid #ccc;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+    }
+    /* Aumenta o tamanho da fonte dos botões na página inicial para melhor legibilidade */
+    .test-selection-btn {
+        display: block;
+        width: 50%;
+        margin: 10px auto;
+        padding: 15px;
+        font-size: 20px; /* Aumentado de 16px para 20px */
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .test-selection-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+    }
+    .fundamental-btn {
+        background-color: #007bff;
+    }
+    .fundamental-btn:hover {
+        background-color: #0056b3;
+    }
+    .medio-btn {
+        background-color: #ffc107;
+        color: #333;
+    }
+    .medio-btn:hover {
+        background-color: #ffc928;
+    }
+    
+    .result-box {
+        margin-top: 20px;
+        padding: 20px;
+        background-color: #fff;
+        border: 1px solid #c3e6c3;
+        border-radius: 5px;
+        text-align: left;
+        font-size: 16px;
+        display: none;
+    }
+    .result-score {
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+    .progress-score-bar {
+        height: 25px;
+        margin: 10px 0;
+        border-radius: 5px;
+        transition: width 1s ease-in-out;
+    }
+    .progress-score-bar.red { background-color: #dc3545; }
+    .progress-score-bar.yellow { background-color: #ffc107; }
+    .progress-score-bar.green { background-color: #28a745; }
+    .wrong-answers-list {
+        list-style-type: none;
+        padding: 0;
+        margin-top: 20px;
+    }
+    .wrong-answers-list li {
+        background-color: #f8d7da;
+        border: 1px solid #f5c6cb;
+        margin-bottom: 15px;
+        padding: 10px;
+        border-radius: 5px;
+    }
+    .wrong-answers-list strong {
+        color: #721c24;
+    }
+    .footer {
+        background-color: #333;
+        color: #fff;
+        text-align: center;
+        padding: 10px;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        font-size: 12px;
+    }
+    
+    /* Regras específicas para telas pequenas (smartphones) */
+    @media (max-width: 600px) {
         .container {
-            max-width: 800px;
-            margin: 20px auto;
-            background: #fff;
-            padding: 20px 40px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            margin: 10px auto;
+            max-width: 95%; /* Garante que o container ocupe mais espaço em telas pequenas */
         }
-        h1, h2 {
-            text-align: center;
-            color: #444;
+        h1 {
+            font-size: 24px;
         }
-        .name-input-container {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .name-input-container input {
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 16px;
-            width: 80%;
-            max-width: 300px;
+        h2 {
+            font-size: 18px;
         }
         .instructions {
-            background-color: #e9ecef;
-            padding: 15px;
-            border-left: 5px solid #007bff;
-            margin-bottom: 20px;
-        }
-        .progress-bar-container {
-            width: 100%;
-            background-color: #ddd;
-            border-radius: 5px;
-            margin-bottom: 20px;
-        }
-        .progress-bar {
-            color: white;
-            height: 20px;
-            border-radius: 5px;
-            width: 0%;
-            text-align: center;
-            line-height: 20px;
-            font-size: 14px;
-            transition: width 0.5s ease-in-out, background-color 0.5s ease-in-out;
-        }
-        .progress-bar.red { background-color: #dc3545; }
-        .progress-bar.yellow { background-color: #ffc107; }
-        .progress-bar.green { background-color: #28a745; }
-
-        .question {
-            margin-bottom: 20px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #ccc;
+            padding: 10px;
         }
         .question p {
-            font-weight: bold;
+            font-size: 18px; /* Aumentado para garantir legibilidade */
         }
         .options label {
-            display: block;
-            margin-bottom: 8px;
-            cursor: pointer;
+            font-size: 16px; /* Aumentado para garantir legibilidade */
         }
-        .options input {
-            margin-right: 10px;
+        .name-input-container input {
+            width: 95%;
         }
-        .submit-btn, .back-to-menu-btn {
-            display: block;
-            width: 100%;
-            padding: 10px;
-            font-size: 16px;
-            color: #fff;
-            background-color: #8a2be2;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 20px;
-        }
-        .submit-btn:hover, .back-to-menu-btn:hover {
-            background-color: #6c1aaf;
-        }
-
-        .test-selection-container {
-            text-align: center;
-            margin-top: 50px;
-        }
-        .test-selection-block {
-            margin-bottom: 30px;
-        }
-        .test-selection-block h3 {
-            border-bottom: 2px solid #ccc;
-            padding-bottom: 10px;
-            margin-bottom: 20px;
-        }
-        /* Efeito de Sombra Elevada para os botões de seleção de teste */
         .test-selection-btn {
-            display: block;
-            width: 50%;
-            margin: 10px auto;
-            padding: 15px;
-            font-size: 16px;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.2s ease-in-out;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 90%; /* Aumentado para ocupar mais espaço na tela e facilitar o toque */
+            font-size: 18px; /* Aumentado para melhor legibilidade */
         }
-        .test-selection-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
-        }
-        .fundamental-btn {
-            background-color: #007bff;
-        }
-        .fundamental-btn:hover {
-            background-color: #0056b3;
-        }
-        .medio-btn {
-            background-color: #ffc107;
-            color: #333;
-        }
-        .medio-btn:hover {
-            background-color: #ffc928;
-        }
-        
-        .result-box {
-            margin-top: 20px;
-            padding: 20px;
-            background-color: #fff;
-            border: 1px solid #c3e6c3;
-            border-radius: 5px;
-            text-align: left;
-            font-size: 16px;
-            display: none;
-        }
-        .result-score {
-            font-size: 20px;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-        .progress-score-bar {
-            height: 25px;
-            margin: 10px 0;
-            border-radius: 5px;
-            transition: width 1s ease-in-out;
-        }
-        .progress-score-bar.red { background-color: #dc3545; }
-        .progress-score-bar.yellow { background-color: #ffc107; }
-        .progress-score-bar.green { background-color: #28a745; }
-        .wrong-answers-list {
-            list-style-type: none;
-            padding: 0;
-            margin-top: 20px;
-        }
-        .wrong-answers-list li {
-            background-color: #f8d7da;
-            border: 1px solid #f5c6cb;
-            margin-bottom: 15px;
-            padding: 10px;
-            border-radius: 5px;
-        }
-        .wrong-answers-list strong {
-            color: #721c24;
-        }
-        .footer {
-            background-color: #333;
-            color: #fff;
-            text-align: center;
-            padding: 10px;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            font-size: 12px;
-        }
-        
-        @media (max-width: 600px) {
-            .container {
-                padding: 15px;
-                margin: 10px auto;
-            }
-            h1 {
-                font-size: 24px;
-            }
-            h2 {
-                font-size: 18px;
-            }
-            .instructions {
-                padding: 10px;
-            }
-            .question p {
-                font-size: 16px;
-            }
-            .options label {
-                font-size: 14px;
-            }
-            .name-input-container input {
-                width: 95%;
-            }
-            .test-selection-btn {
-                width: 90%;
-            }
-        }
-    </style>
+    }
+</style>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -232,7 +239,7 @@
 
             const answers6th = {
                 q1: { ans: 'c', text: 'is / am', justification: 'O verbo to be concorda com o sujeito: name (terceira pessoa do singular) usa is, e I (primeira pessoa do singular) usa am.' },
-                q2: { ans: 'b', text: 'He goes to school every morning.', justification: 'O Simple Present, usado para rotinas, exige que verbos na terceira pessoa do singular (he, she, it) terminem com -s ou -es.' },
+                q2: { ans: 'b', text: 'He goes to school every morning.', justification: 'O Presente Simples, usado para rotinas, exige que verbos na terceira pessoa do singular (he, she, it) terminem com -s ou -es.' },
                 q3: { ans: 'a', text: 'How old are you?', justification: 'Esta é a forma padrão para perguntar a idade de alguém em inglês, utilizando o verbo to be antes do sujeito you.' },
                 q4: { ans: 'c', text: 'My', justification: 'A frase se refere a um livro que I (eu) possuo, então o adjetivo possessivo correto é my.' },
                 q5: { ans: 'b', text: 'A muitos estudantes', justification: 'O apóstrofo é colocado após o s (students\') para indicar posse de um substantivo no plural.' },
@@ -255,7 +262,7 @@
             
             const answers7th = {
                 q21: { ans: 'b', text: 'was', justification: 'O verbo to be no passado para a terceira pessoa do singular (He, She, It) é was.' },
-                q22: { ans: 'a', text: 'I was playing soccer when it started to rain.', justification: 'O Past Continuous (was playing) é usado para descrever uma ação que estava em andamento quando outra ação (no Past Simple, started) aconteceu.' },
+                q22: { ans: 'a', text: 'I was playing soccer when it started to rain.', justification: 'O Passado Contínuo (was playing) é usado para descrever uma ação que estava em andamento quando outra ação (no Passado Simples, started) aconteceu.' },
                 q23: { ans: 'b', text: 'studied', justification: 'Para verbos regulares terminados em y precedido de consoante, trocamos o y por i e adicionamos -ed para formar o passado.' },
                 q24: { ans: 'c', text: 'them', justification: 'Them é um pronome de objeto, usado para substituir um substantivo que recebe a ação do verbo. He e we são pronomes de sujeito.' },
                 q25: { ans: 'c', text: 'radioactivity', justification: 'Radioactivity é a palavra com maior semelhança em grafia e significado com o português radioatividade. A BNCC incentiva o uso de cognatos para auxiliar na compreensão.' },
@@ -268,7 +275,7 @@
                 q32: { ans: 'b', text: 'go', justification: 'Went é a forma no passado irregular do verbo go. A BNCC prevê a construção de repertório lexical com verbos regulares e irregulares no passado.' },
                 q33: { ans: 'c', text: 'Past Figures of Brazil', justification: 'O título refere-se a personalidades do passado, o que se alinha com o objeto de conhecimento de produzir textos sobre fatos e personalidades do passado.' },
                 q34: { ans: 'a', text: 'ate', justification: 'Ate é o passado irregular do verbo eat. As outras opções são verbos regulares que terminam em -ed.' },
-                q35: { ans: 'c', text: 'did', justification: 'O auxiliar did é usado para formar perguntas no Past Simple para todos os sujeitos.' },
+                q35: { ans: 'c', text: 'did', justification: 'O auxiliar did é usado para formar perguntas no Passado Simples para todos os sujeitos.' },
                 q36: { ans: 'b', text: 'Entender que uma palavra pode ter múltiplos significados dependendo do contexto.', justification: 'A BNCC espera que os alunos explorem o caráter polissêmico de palavras de acordo com o contexto de uso.' },
                 q37: { ans: 'a', text: 'ontem', justification: 'Yesterday é um advérbio de tempo que significa ontem, indicando um evento passado.' },
                 q38: { ans: 'c', text: 'uma habilidade no passado.', justification: 'O verbo modal could é usado para descrever habilidades no passado.' },
@@ -324,7 +331,7 @@
 
             const answersem1 = {
                 q81: { ans: 'c', text: 'Uma possibilidade.', justification: 'O verbo modal may é usado para expressar possibilidade, o que reflete a habilidade de compreender a função dos modais em contextos específicos.' },
-                q82: { ans: 'c', text: 'I have seen that movie.', justification: 'O Past Perfect é formado por have ou has e o particípio passado do verbo. Seen é o particípio passado de see.' },
+                q82: { ans: 'c', text: 'I have seen that movie.', justification: 'O Passado Perfeito é formado por have ou has e o particípio passado do verbo. Seen é o particípio passado de see.' },
                 q83: { ans: 'a', text: 'The book was written by a famous author.', justification: 'A voz passiva é usada para enfatizar a ação ou o objeto que a recebe. Sua estrutura é verbo to be + particípio passado do verbo principal.' },
                 q84: { ans: 'b', text: 'much', justification: 'Much é o quantificador correto para substantivos incontáveis como money. Many seria usado para substantivos contáveis.' },
                 q85: { ans: 'c', text: 'might', justification: 'Might é um verbo modal usado para expressar especulação ou uma possibilidade fraca, que se encaixa bem com a expressão de dúvida na frase.' },
@@ -535,9 +542,8 @@
 
     <div class="container">
         <h1>Teste de Nível de Inglês</h1>
-        <h2>Prof. Johnatan Willow</h2>
-
-        <div id="test-selection-container" class="test-selection-container">
+        <h2>© Direitos Reservados ao Prof. Johnatan Willow || 2025</h2>
+     <div id="test-selection-container" class="test-selection-container">
             <div class="test-selection-block">
                 <h3>Ensino Fundamental</h3>
                 <button id="select-6th-grade" class="test-selection-btn fundamental-btn">6º Ano</button>
@@ -556,7 +562,7 @@
         <div id="test6th-grade-container" style="display: none;">
             <div class="instructions">
                 <p>Com base nos documentos da Base Nacional Comum Curricular (BNCC), foi preparado um teste de 20 questões de múltipla escolha para alunos do 6º ano, com a dificuldade e o foco esperados para este período escolar.</p>
-                <p>Este teste aborda tópicos como o uso do verbo to be, o Present Simple para rotinas, o presente contínuo para ações em andamento, vocabulário básico sobre família e rotina diária, e estratégias de leitura como o uso de cognatos.</p>
+                <p>Este teste aborda tópicos como o uso do verbo to be, o presente simples para rotinas, o presente contínuo para ações em andamento, vocabulário básico sobre família e rotina diária, e estratégias de leitura como o uso de cognatos.</p>
                 <h4>Instruções para o Aluno:</h4>
                 <ul>
                     <li>Leia cada pergunta com atenção.</li>
@@ -758,7 +764,7 @@
         <div id="test7th-grade-container" style="display: none;">
             <div class="instructions">
                 <p>Com base nos documentos da Base Nacional Comum Curricular (BNCC), foi preparado um teste de 20 questões de múltipla escolha para alunos do 7º ano, com a dificuldade e o foco esperados para este período escolar.</p>
-                <p>Este teste foi elaborado para avaliar o conhecimento dos alunos sobre gramática (Past Simple, Past continuous, pronomes), vocabulário contextualizado e compreensão de texto, conforme a progressão de aprendizado esperada para o 7º ano.</p>
+                <p>Este teste foi elaborado para avaliar o conhecimento dos alunos sobre gramática (passado simples, passado contínuo, pronomes), vocabulário contextualizado e compreensão de texto, conforme a progressão de aprendizado esperada para o 7º ano.</p>
                 <h4>Instruções para o Aluno:</h4>
                 <ul>
                     <li>Leia cada pergunta com atenção.</li>
@@ -772,7 +778,7 @@
                     <input type="text" id="userName7th" placeholder="Digite seu nome">
                 </div>
                 <div class="question">
-                    <p>1. Complete a frase com o verbo no Past Simple: "She _____ born in 1990."</p>
+                    <p>1. Complete a frase com o verbo no Passado Simples: "She _____ born in 1990."</p>
                     <div class="options">
                         <label><input type="radio" name="q21" value="a" id="q21-a"> a) is</label>
                         <label><input type="radio" name="q21" value="b" id="q21-b"> b) was</label>
@@ -790,7 +796,7 @@
                     </div>
                 </div>
                 <div class="question">
-                    <p>3. Qual é a forma correta do verbo study no Past Simple para she?</p>
+                    <p>3. Qual é a forma correta do verbo study no Passado Simples para she?</p>
                     <div class="options">
                         <label><input type="radio" name="q23" value="a" id="q23-a"> a) studyed</label>
                         <label><input type="radio" name="q23" value="b" id="q23-b"> b) studied</label>
@@ -1380,7 +1386,7 @@
                     </div>
                 </div>
                 <div class="question">
-                    <p>2. Qual frase no Present Perfect está gramaticalmente correta?</p>
+                    <p>2. Qual frase no Passado Perfeito (Present Perfect) está gramaticalmente correta?</p>
                     <div class="options">
                         <label><input type="radio" name="q82" value="a" id="q82-a"> a) I have saw that movie last year.</label>
                         <label><input type="radio" name="q82" value="b" id="q82-b"> b) I has seen that movie.</label>
@@ -1715,7 +1721,7 @@
                     </div>
                 </div>
                 <div class="question">
-                    <p>17. Qual das opções a seguir exemplifica o uso da voz passiva no Past Simple?</p>
+                    <p>17. Qual das opções a seguir exemplifica o uso da voz passiva no Passado Simples?</p>
                     <div class="options">
                         <label><input type="radio" name="q117" value="a" id="q117-a"> a) The letter was written by her.</label>
                         <label><input type="radio" name="q117" value="b" id="q117-b"> b) She wrote the letter.</label>
