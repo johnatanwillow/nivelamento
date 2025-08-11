@@ -198,33 +198,37 @@
         .container {
             padding: 15px;
             margin: 10px auto;
-            max-width: 95%; /* Garante que o container ocupe mais espaço em telas pequenas */
+            max-width: 95%;
         }
         h1 {
-            font-size: 24px;
+            font-size: 28px; /* Aumentado para melhor visibilidade */
         }
         h2 {
-            font-size: 18px;
+            font-size: 22px; /* Aumentado para melhor visibilidade */
         }
         .instructions {
             padding: 10px;
         }
+        /* Aumenta a fonte das perguntas no questionário para melhor legibilidade */
         .question p {
-            font-size: 18px; /* Aumentado para garantir legibilidade */
+            font-size: 20px;
         }
+        /* Aumenta a fonte das opções de resposta para melhor legibilidade */
         .options label {
-            font-size: 16px; /* Aumentado para garantir legibilidade */
+            font-size: 18px;
+            line-height: 1.8; /* Aumenta o espaçamento entre as linhas */
         }
         .name-input-container input {
             width: 95%;
         }
+        /* Aumenta a fonte e o padding dos botões da página inicial */
         .test-selection-btn {
-            width: 90%; /* Aumentado para ocupar mais espaço na tela e facilitar o toque */
-            font-size: 18px; /* Aumentado para melhor legibilidade */
+            width: 90%;
+            font-size: 20px;
+            padding: 20px; /* Aumenta a área de toque */
         }
     }
-</style>
-
+    </style>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const grade6Container = document.getElementById('test6th-grade-container');
